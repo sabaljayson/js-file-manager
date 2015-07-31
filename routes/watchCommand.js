@@ -16,6 +16,7 @@ router.get('/', function(req, res, next) {
 	var socketId = req.query.socketId;
 
 	var io = req.app.get('socketIo');
+	var socketsList = io.sockets.server.eio.clients;
 
 	var watcher = fs.watch(address, function(ev, filename) {
 		var pathToFile = path.join(address, filename);
@@ -35,12 +36,21 @@ router.get('/', function(req, res, next) {
 	});
 
 	var watchers = req.app.get('watchers') || {};
+
+	// Close watcher, if socket is not connected
+	for (var id in watchers) {
+		if (! socketsList[id]) {
+			watchers[id].close();
+		}
+	}
+
+	// Close watcher for current socket, if already open
 	if (watchers[socketId]) {
 		watchers[socketId].close();
 	}
+	
 	watchers[socketId] = watcher;
 	req.app.set('watchers', watchers);
-
 
 	res.end('done');
 	console.log('watch', address);	
