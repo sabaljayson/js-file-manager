@@ -2,7 +2,6 @@ var express = require('express');
 var path = require('path');
 var fs = require('fs');
 var mkdirp = require('mkdirp');
-var shortid = require('shortid');
 var querystring = require('querystring');
 var mime = require('mime');
  
