@@ -1,0 +1,75 @@
+body {
+	overflow-x: hidden;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.directories-breadcrumb a {
+	cursor: pointer;
+}
+
+.files-grid-element {
+	overflow: hidden;
+}
+
+.grid-folder-element {
+	width: 150px;
+	margin: 10px !important;
+	line-height: 27px;
+	padding-left: 10px;
+	overflow: hidden;
+
+	border: 1px solid white !important;
+}
+
+.grid-folder-element.selected {
+	border: 1px solid #009688 !important;
+}
+
+.grid-file-element {
+	width: 100px !important;
+	height: 140px !important;
+
+	float: left;
+	margin: 10px;
+	overflow: hidden;
+}
+
+.grid-file-element.selected .thumbnail {
+	border-color: #009688;
+	color: #009688;
+}
+
+.grid-file-element img {
+	height: 70px !important;
+	width: 70px !important;
+}
+
+.grid-file-element i {
+	font-size: 100px !important;
+}
+
+.dropdown-menu {
+	min-width: 0px !important;
+}
+
+.context-menu {
+	position: absolute;
+	z-index: 333;
+}
+
+.dropdown-menu, .context-menu li a {
+	cursor: pointer;
+}
+
+.context-menu hr {
+	margin: 5px;
+}
+
+.dragged-element {
+	-webkit-transform: translateY(6px) rotateZ(5deg);
+}
