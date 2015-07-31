@@ -80,12 +80,12 @@ class FilesGrid extends React.Component {
 
   _onContextMenu(e) {
     // Exit if clicked on <GridFile/>
-    var parents = $(e.target).parentsUntil('.grid-file-element');
+    /*var parents = $(e.target).parentsUntil('.grid-file-element');
     if (parents.length == 0 || parents[parents.length - 1].nodeName != "HTML") {
       return;
-    }
+    }*/
     
-    ContextMenuActions.open(e.pageY, e.pageX, ContextMenuConstants.MENU_TYPE_BACKGROUND);
+    ContextMenuActions.open(e.pageY, e.pageX);
   }
 
   _selectFile(node) {

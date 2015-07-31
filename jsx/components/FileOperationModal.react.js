@@ -99,7 +99,10 @@ class FileOperationModal extends React.Component {
   }
 
   _removeFiles() {
-    FileManagerActions.removeFiles(this.state.files);
+    this.state.files
+      .map(f => f.id)
+      .forEach(FileManagerActions.removeFile);
+      
     FileOperationActions.closeModal();
   }
 

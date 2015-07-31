@@ -19,7 +19,10 @@ router.get('/', function(req, res, next) {
 		return fileStruct(pathToFile);
 	});
 	
-  res.send(files);
+  res.send({
+  	dirData: fileStruct(address),
+  	files: files
+  });
 
   console.log('ls ' + address);
 });

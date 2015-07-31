@@ -54,7 +54,7 @@ class GridFolder extends React.Component {
 
     FileManagerActions.setFileSelection(this.props.id, true);
 
-    ContextMenuActions.open(e.pageY, e.pageX, CMConstants.MENU_TYPE_FOLDER, this.props.id);
+    ContextMenuActions.open(e.pageY, e.pageX);
     e.stopPropagation();
   }
 }

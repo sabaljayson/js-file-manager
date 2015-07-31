@@ -15,6 +15,20 @@ var FileOperationActions = {
     });
   },
 
+  renameFiles: function(files) {
+    AppDispatcher.dispatch({
+      actionType: FileOperationConstants.RENAME_FILES,
+      files: files
+    });
+  },
+
+  filesProperties: function(files) {
+    AppDispatcher.dispatch({
+      actionType: FileOperationConstants.OPEN_FILES_PROPERTIES,
+      files: files
+    });
+  },  
+
   closeModal: function() {
     AppDispatcher.dispatch({
       actionType: FileOperationConstants.CLOSE_MODAL

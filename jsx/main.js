@@ -7,7 +7,6 @@ var FileManagerStore = require('./stores/FileManagerStore');
 var FileManager = require('./components/FileManager.react');
 var FileOperationModal = require('./components/FileOperationModal.react');
 
-
 $(document).ready(function() {
 	// Enable material effects
 	$.material.init();
@@ -26,12 +25,6 @@ $(document).ready(function() {
 		});
 	})
 
-	// Select all
-	mousetrap.bind('ctrl+a', e => {
-		FileManagerStore.getFiles()
-			.map(f => f.id)
-			.forEach(id => FileManagerActions.setFileSelection(id, true));
-	});
-
+	mousetrap.bind('ctrl+a', FileManagerActions.selectAllFiles);
 	mousetrap.bind('backspace',	FileManagerActions.historyBack);	
 });

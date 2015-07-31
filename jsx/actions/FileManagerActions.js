@@ -55,6 +55,12 @@ var FileManagerActions = {
     });
   },
 
+  selectAllFiles: function() {
+    FileManagerStore
+      .getFiles()
+      .forEach(f => FileManagerActions.setFileSelection(f.id, true));
+  },
+
   unselectAllFiles: function() {
     FileManagerStore
       .getFiles()
@@ -62,17 +68,17 @@ var FileManagerActions = {
       .forEach(f => FileManagerActions.setFileSelection(f.id, false));
   },
 
-  openFiles: function(files) {
+  openFile: function(id) {
     AppDispatcher.dispatch({
-      actionType: FileManagerConstants.OPEN_FILES,
-      files: files
+      actionType: FileManagerConstants.OPEN_FILE,
+      id: id
     });
   },
 
-  removeFiles: function(files) {
+  removeFile: function(id) {
     AppDispatcher.dispatch({
-      actionType: FileManagerConstants.REMOVE_FILES,
-      files: files
+      actionType: FileManagerConstants.REMOVE_FILE,
+      id: id
     });
   },
 

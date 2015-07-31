@@ -49,7 +49,7 @@ class GridFile extends React.Component {
       FileManagerActions.setFileSelection(this.props.id, true);
     }
 
-    CMActions.open(e.pageY, e.pageX, CMConstants.MENU_TYPE_FILE, this.props.id);
+    CMActions.open(e.pageY, e.pageX);
   }
 
   _onChange() {

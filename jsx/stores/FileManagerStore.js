@@ -37,8 +37,9 @@ function setPath(path) {
   $.ajax({
     url: '/ls',
     data: { address: path },
-    success: (files) => {
-      _storeData.files = files;
+    success: (data) => {
+      _storeData.dirData = data.dirData;
+      _storeData.files = data.files;
       _storeData.files.forEach(f => {
         _storeData.filesMap[f.id] = f;
       });
@@ -248,6 +249,10 @@ var FileManagerStore = assign({}, EventEmitter.prototype, {
     throw "No file with such id " + id;
   },
 
+  getDirectoryObject: function() {
+    return _storeData.dirData;
+  },
+
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
@@ -320,7 +325,7 @@ FileManagerStore.dispatchToken = AppDispatcher.register(function(action) {
       break;
 
     case FileManagerConstants.REMOVE_FILE:
-      removeFile(action.file);
+      removeFile(FileManagerStore.getFile(action.id));
       break;
 
     default:
