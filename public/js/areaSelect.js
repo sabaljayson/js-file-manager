@@ -22,7 +22,7 @@
 		$(container).mousedown(onMouseDown);
 		$(container).mousemove(onMouseMove);
 		$(container).mouseup(onMouseUp);
-		$(container).mouseout(onMouseOut);
+		$(container).mouseleave(onMouseOut);
 
 		areaObjects.push({
 			node: container.get(0),
@@ -66,7 +66,7 @@
 			rectNode = null;
 		}
 		function onMouseOut(e) {
-			
+			onMouseUp(e);
 		}
 		function callOnIntersect(options, selectRect) {
 			var scrollTop = $('body').scrollTop(),

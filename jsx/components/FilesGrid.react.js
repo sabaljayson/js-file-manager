@@ -51,7 +51,7 @@ class FilesGrid extends React.Component {
     var folders = this.state.files.filter(f => f.is_dir);
     var files = this.state.files.filter(f => ! f.is_dir);
 
-    var minHeight = window.innerHeight - $('.navbar').height() - 80;
+    var minHeight = window.innerHeight - $('.navbar').height();
 
     return (
       <div

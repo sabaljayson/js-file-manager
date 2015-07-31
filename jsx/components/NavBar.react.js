@@ -9,7 +9,7 @@ class NavBar extends React.Component {
 
 	render() {
 		return (
-			<div className="navbar navbar-primary" style={{marginBottom: 12}}>
+			<div className="navbar navbar-primary" style={{marginBottom: 0}}>
 				<div className="row">
 				  <div className="col-md-12">
 					  <div className="navbar-collapse collapse navbar-responsive-collapse">

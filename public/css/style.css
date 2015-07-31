@@ -1,4 +1,5 @@
 body {
+	background: white !important;
 	overflow-x: hidden;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -14,6 +15,7 @@ body {
 
 .files-grid-element {
 	overflow: hidden;
+	padding-top: 12px !important;
 }
 
 .grid-folder-element {

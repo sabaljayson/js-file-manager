@@ -40,12 +40,8 @@ class FileManager extends React.Component {
 					<FileOperationModal />
 					<NavBar path={this.state.path} />
 		      <div className="row" style={{padding: "0px 10px"}}>
-		        <div className="col-md-12">        
-		          <div className="panel panel-default">
-		            <div className="panel-body">
-		            	<FilesGrid />
-		            </div>
-		          </div>
+		        <div className="col-md-12">
+		          <FilesGrid />
 		        </div>
 		  		</div>
 				</div>
