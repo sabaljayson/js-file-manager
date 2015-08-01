@@ -12,6 +12,8 @@ module.exports = constance('FILE_MANAGER_CONSTANTS_', [
 
   'CREATE_DIRECTORY',
   'OPEN_FILE',
+  'MOVE_FILE',
+  'COPY_FILE',
   'REMOVE_FILE',
   'OPEN_FILE_PROPERTIES',
   

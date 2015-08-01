@@ -16,9 +16,10 @@ var ClipboardActions = {
     });
   },
 
-  pasteFiles: function() {
+  pasteFiles: function(path) {
     AppDispatcher.dispatch({
-      actionType: ClipboardConstants.PASTE_FILES
+      actionType: ClipboardConstants.PASTE_FILES,
+      path: path
     });
   },
 

@@ -13,6 +13,7 @@ var routes = {
   mkdirCommand: require('./routes/mkdirCommand'),
   openCommand: require('./routes/openCommand'),
   rmCommand: require('./routes/rmCommand'),
+  mvCommand: require('./routes/mvCommand'),
   watchCommand: require('./routes/watchCommand'),
   thumbCommand: require('./routes/thumbCommand'),
 };
@@ -39,6 +40,7 @@ app.use('/', routes.index);
 app.use(/\/path=.+/, routes.index);
 app.use('/ls', routes.lsCommand);
 app.use('/rm', routes.rmCommand);
+app.use('/mv', routes.mvCommand);
 app.use('/mkdir', routes.mkdirCommand);
 app.use('/open', routes.openCommand);
 app.use('/watch', routes.watchCommand);

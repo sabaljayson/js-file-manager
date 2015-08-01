@@ -40,6 +40,22 @@ var FileManagerActions = {
     });
   },
 
+  moveFile: function(fromPath, toPath) {
+    AppDispatcher.dispatch({
+      actionType: FileManagerConstants.MOVE_FILE,
+      fromPath: fromPath,
+      toPath: toPath
+    });
+  },
+
+  copyFile: function(fromPath, toPath) {
+    AppDispatcher.dispatch({
+      actionType: FileManagerConstants.COPY_FILE,
+      fromPath: fromPath,
+      toPath: toPath
+    });
+  },  
+
   setFileSelection: function(id, selected) {
     AppDispatcher.dispatch({
       actionType: FileManagerConstants.SET_FILE_SELECTION,

@@ -7,6 +7,7 @@ var FileManagerActions = require('../actions/FileManagerActions');
 var FileOperationActions = require('../actions/FileOperationActions');
 var ContextMenuConstants = require('../constants/ContextMenuConstants');
 var FileManagerStore = require('../stores/FileManagerStore');
+var ClipboardStore = require('../stores/ClipboardStore');
 
 
 var CHANGE_EVENT = 'change';
@@ -27,18 +28,18 @@ function openInNewTab(dir) {
 function getBackgroundItems() {
   var currentDir = FileManagerStore.getDirectoryObject();
 
+  var pasteCount = ClipboardStore.pasteFilesCount();
+  var pasteLabel = pasteCount + ' file' + (pasteCount > 1 ?  's' : '');
+  var dirPath = FileManagerStore.getPath();
+
   return [
     {
       label: 'New Folder',
       onclick: FileOperationActions.createDirectory
     },
     {
-      label: 'New Document',
-      onclick: FileOperationActions.createFile
-    },
-    {
-      label: 'Paste',
-      onclick: ClipboardActions.pasteFiles
+      label: 'Paste ' + pasteLabel,
+      onclick: () => ClipboardActions.pasteFiles(dirPath)
     },    
     {
       label: 'Properties',
@@ -99,13 +100,13 @@ function getFileItems(selectedFiles) {
     label: 'Cut ' + selLabel,
     onclick: () => {
       ClipboardActions.resetClipboard();
-      selectedFiles.forEach(ClipboardActions.cutFile);
+      selectedFiles.map(f => f.id).forEach(ClipboardActions.cutFile);
     }
   }, {
     label: 'Copy ' + selLabel,
     onclick: () => {
       ClipboardActions.resetClipboard();
-      selectedFiles.forEach(ClipboardActions.copyFile);
+      selectedFiles.map(f => f.id).forEach(ClipboardActions.copyFile);
     }
   }, {
     type: 'delimiter'

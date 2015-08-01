@@ -55,6 +55,13 @@ AppDispatcher.register(function(action) {
       FileOperationStore.emitChange();
       break;
 
+    case FileOperationConstants.RENAME_FILES:
+      _storeData.open = true;
+      _storeData.type = FileOperationConstants.RENAME_FILES;
+      _storeData.files = action.files;
+      FileOperationStore.emitChange();
+      break;
+
     case FileOperationConstants.CLOSE_MODAL:
       _storeData.open = false;
       FileOperationStore.emitChange();

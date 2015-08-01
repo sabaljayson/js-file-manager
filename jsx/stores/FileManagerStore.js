@@ -52,6 +52,20 @@ function setPath(path) {
   });
 }
 
+function moveFile(fromPath, toPath) {
+  $.ajax({
+    url: '/mv',
+    data: { from: fromPath, to: toPath }
+  });
+}
+
+function copyFile(fromPath, toPath) {
+  $.ajax({
+    url: '/cp',
+    data: { from: fromPath, to: toPath }
+  });
+}
+
 function watchDirectory(path) {
   if (! _storeData.socket) {
     _storeData.socket = io.connect(CONSTS.BASE_PATH);
@@ -322,6 +336,14 @@ FileManagerStore.dispatchToken = AppDispatcher.register(function(action) {
 
     case FileManagerConstants.OPEN_FILE:
       openFile(FileManagerStore.getFile(action.id));
+      break;
+
+    case FileManagerConstants.MOVE_FILE:
+      moveFile(action.fromPath, action.toPath);
+      break;
+
+    case FileManagerConstants.COPY_FILE:
+      copyFile(action.fromPath, action.toPath);
       break;
 
     case FileManagerConstants.REMOVE_FILE:
