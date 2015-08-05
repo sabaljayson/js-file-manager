@@ -2,7 +2,6 @@ var fs = require('fs');
 var md5 = require('md5');
 var mime = require('mime');
 var path = require('path');
-var imageSize = require('image-size');
 
 module.exports = function(pathToFile) {
 	var stats = fs.lstatSync(pathToFile);
