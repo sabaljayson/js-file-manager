@@ -1,5 +1,3 @@
-# html5-file-manager
-
 File manager with web UI. Intended as a replacement for native file manager,
 rather than as a UI to browse files on remote server.
 
