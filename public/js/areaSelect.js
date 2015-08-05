@@ -69,7 +69,7 @@
 			onMouseUp(e);
 		}
 		function callOnIntersect(options, selectRect) {
-			var scrollTop = $('body').scrollTop(),
+			var scrollTop = container.scrollTop(),
 				scrollBottom = scrollTop + window.innerHeight;
 
 			options.selectors.forEach(function(selector) {
@@ -122,7 +122,7 @@
 			var rect = rectangleCoords(x1, y1, x2, y2);
 
 			$(node).css({
-				'top': rect.y1 - $('body').scrollTop(),
+				'top': rect.y1 - container.scrollTop(),
 				'left': rect.x1,
 				'width': rect.x2 - rect.x1,
 				'height': rect.y2 - rect.y1

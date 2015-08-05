@@ -38,16 +38,24 @@ function getBackgroundItems() {
       onclick: FileOperationActions.createDirectory
     },
     {
-      label: 'Paste ' + pasteLabel,
+      inactive: pasteCount == 0,
+      label: 'Paste ' + (pasteCount ? pasteLabel : ''),
       onclick: () => ClipboardActions.pasteFiles(dirPath)
-    },    
+    },
     {
+      inactive: true,
       label: 'Properties',
       onclick: () => FileOperationActions.filesProperties([currentDir])
     },
     { type: 'delimiter' },
-    { label: 'Open terminal' },
-    { label: 'Execute JS' }
+    {
+      inactive: true,
+      label: 'Open terminal'
+    },
+    {
+      inactive: true,
+      label: 'Execute JS'
+    }
   ];
 }
 
@@ -111,6 +119,7 @@ function getFileItems(selectedFiles) {
   }, {
     type: 'delimiter'
   }, {
+    inactive: true,
     label: 'Properties',
     onclick: () => FileOperationActions.filesProperties(selectedFiles)
   }];

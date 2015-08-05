@@ -15,7 +15,7 @@ var routes = {
   rmCommand: require('./routes/rmCommand'),
   mvCommand: require('./routes/mvCommand'),
   watchCommand: require('./routes/watchCommand'),
-  thumbCommand: require('./routes/thumbCommand'),
+  thumbCommand: require('./routes/thumbCommand')
 };
 
 
@@ -35,6 +35,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
+app.use('/get', express.static('/'));
 
 app.use('/', routes.index);
 app.use(/\/path=.+/, routes.index);

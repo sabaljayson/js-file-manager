@@ -24,10 +24,10 @@ class FilesGrid extends React.Component {
     FileManagerStore.addChangeListener(this._onChange.bind(this));
 
     // load thumbs if stops/slows scrolling    
-    $(document).bind('scroll',
+    $('.files-grid-element').bind('scroll',
       _.debounce(FileManagerActions.updateFilesThumbnails, 120));
 
-    var self = this;
+    var self = this; // TODO
 
     $('.files-grid-element').areaSelect({
       selectors: ['.grid-file-element', '.grid-folder-element'],
@@ -50,12 +50,17 @@ class FilesGrid extends React.Component {
   render() {
     var folders = this.state.files.filter(f => f.is_dir);
     var files = this.state.files.filter(f => ! f.is_dir);
-
     var minHeight = window.innerHeight - $('.navbar').height();
+    var styles = {
+      height: minHeight,
+      overflowY: 'auto',
+      backgroundColor: 'white',
+      zIndex: 10
+    };
 
     return (
       <div
-        style={{minHeight: minHeight}}
+        style={styles}
         className='files-grid-element'
         onClick={this._onClick}
         onContextMenu={this._onContextMenu.bind(this)} >
@@ -80,11 +85,12 @@ class FilesGrid extends React.Component {
 
   _onContextMenu(e) {
     // Exit if clicked on <GridFile/>
-    /*var parents = $(e.target).parentsUntil('.grid-file-element');
+    var parents = $(e.target).parentsUntil('.grid-file-element');
     if (parents.length == 0 || parents[parents.length - 1].nodeName != "HTML") {
       return;
-    }*/
+    }
     
+    FileManagerActions.unselectAllFiles();
     ContextMenuActions.open(e.pageY, e.pageX);
   }
 

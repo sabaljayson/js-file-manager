@@ -22,6 +22,7 @@ var _storeData = {
     order: 1
   },
   settings: {
+    contentPaneOpen: true,
     iconsType: FileManagerConstants.ICON_TYPE_OXYGEN
   }
 };
@@ -243,11 +244,21 @@ var FileManagerStore = assign({}, EventEmitter.prototype, {
     return _storeData.settings;
   },
 
+  getContentPane: function() {
+    return true;
+    
+    var selFiles = FileManagerStore.getSelectedFiles();
+    if (selFiles.length > 1)
+      return false;
+
+    return selFiles[0];
+  },
+
   getPath: function() {
     return _storeData.path;
   },
 
-  getFiles: function() {    
+  getFiles: function() {
     return _storeData.files;
   },
 
@@ -284,7 +295,7 @@ var FileManagerStore = assign({}, EventEmitter.prototype, {
   },
 
   addFileChangeListener: function(fileId, callback) {
-    _storeData.fileChangeListeners[fileId] = (id) => {
+    _storeData.fileChangeListeners[fileId] = id => {
       if (id == fileId)
         callback();
     };

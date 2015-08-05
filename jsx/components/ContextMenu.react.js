@@ -33,6 +33,10 @@ class ContextMenu extends React.Component {
             return <hr key={key} />
           }
 
+          if (item.inactive) {
+            return <li key={key}><a style={{color: 'grey'}}>{item.label}</a></li>;
+          }
+
           var onClick = () => {
             item.onclick();
             ContextMenuActions.close();
