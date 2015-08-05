@@ -6,8 +6,8 @@ rather than as a UI to browse files on remote server.
 ## How to run
 Assuming you have imagemagick installed.
 ```
-git clone https://github.com/tsim0/html5-file-manager.git
-cd html5-file-manager
+git clone https://github.com/tsim0/js-file-manager.git
+cd js-file-manager
 npm install
 npm start
 ```
