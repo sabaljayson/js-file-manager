@@ -34,7 +34,7 @@ class ContentPane extends React.Component {
     if (! data)
       return false;
 
-    if (data.image) {
+    if (data.is_image) {
       var url = CONSTS.BASE_PATH + '/get' + data.path;
       return <ZoomableImage src={url} />
     }

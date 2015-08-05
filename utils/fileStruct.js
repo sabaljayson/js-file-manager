@@ -6,12 +6,7 @@ var imageSize = require('image-size');
 
 module.exports = function(pathToFile) {
 	var stats = fs.lstatSync(pathToFile);
-	var fileMime = mime.lookup(pathToFile);
-
-	var image = false;
-	if (fileMime.has('image')) {
-		image = imageSize(pathToFile);
-	}
+	var fileMime = mime.lookup(pathToFile);	
 
 	return {
 		filename: path.basename(pathToFile),
@@ -22,6 +17,6 @@ module.exports = function(pathToFile) {
 		size: stats.size / (1024 * 1024), // in MB
 		mtime: stats.mtime,
 		selected: false,
-		image: image
+		is_image: fileMime.has('image')
 	};
 };
