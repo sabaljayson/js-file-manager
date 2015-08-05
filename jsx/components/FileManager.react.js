@@ -36,9 +36,9 @@ class FileManager extends React.Component {
 		var title = this.state.path.split(path.sep).last();
 		var viewZoom = this.state.viewZoom;
 
-		var split1 = 'col-md-12', split2 = 'col-md-0';
+		var split1 = 'col-xs-12', split2 = 'col-xs-0';
 		if (this.state.settings.contentPaneOpen) {
-			split1 = split2 = 'col-md-6';
+			split1 = split2 = 'col-xs-6';
 		}
 
 		return (

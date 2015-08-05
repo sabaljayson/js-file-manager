@@ -40,7 +40,7 @@
 
 			rectNode = createRectNode(styles);
 			initX = e.pageX;
-			initY = e.pageY;
+			initY = e.pageY + container.scrollTop();
 
 			// all nodes are out of area at start
 			options.selectors.forEach(function(selector) {
@@ -56,9 +56,9 @@
 			if (! rectNode)
 				return;
 
-			drawRect(rectNode, initX, initY, e.pageX, e.pageY);
+			drawRect(rectNode, initX, initY, e.pageX, e.pageY + container.scrollTop());
 
-			var selectRect = rectangleCoords(initX, initY, e.pageX, e.pageY);
+			var selectRect = rectangleCoords(initX, initY, e.pageX, e.pageY + container.scrollTop());
 			callOnIntersect(options, selectRect);
 		}
 		function onMouseUp(e) {
@@ -78,6 +78,8 @@
 				for (var i = 0; i < all.length; ++i) {
 					var $node = all.eq(i);
 					var pos = $node.offset();
+
+					pos.top += container.scrollTop();
 
 					var nodeInView = scrollTop <= pos.top && pos.top <= scrollBottom;
 					var nodeInSelect = selectRect.y1 <= pos.top && pos.top <= selectRect.y2;
