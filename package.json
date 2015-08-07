@@ -41,7 +41,9 @@
     "react-ace": "~2.0.3",
     "brace": "~0.5.1",
     "vf-wheelzoom": "0.0.4",
-    "react-draggable": "~0.8.1"
+    "react-draggable": "~0.8.1",
+    "folderify": "~0.7.1",
+    "include-folder": "~0.9.0"
   },
   "devDependencies": {
     "browserify": "^6.2.0",
@@ -59,7 +61,8 @@
           "es6": true
         }
       ],
-      "envify"
+      "envify",
+      "folderify"
     ]
   }
 }

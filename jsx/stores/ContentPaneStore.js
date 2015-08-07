@@ -8,10 +8,18 @@ var ContentPaneConstants = require('../constants/ContentPaneConstants');
 
 var CHANGE_EVENT = 'change';
 
-var _storeData = {
+var defaultStoreData = {
   selectedFile: false,
   value: false
 };
+
+var _storeData = {};
+assign(_storeData, defaultStoreData);
+
+function clearStore() {
+  assign(_storeData, defaultStoreData);
+  ContentPaneStore.emitChange();  
+}
 
 function updateValue(path) {
   $.ajax({
@@ -37,9 +45,7 @@ function onSelectionChange() {
     }
   }
   else {
-    _storeData.selectedFile = false;
-    _storeData.value = false;
-    ContentPaneStore.emitChange();
+    clearStore();
   }
 }
 
@@ -72,6 +78,10 @@ AppDispatcher.register(function(action) {
   ]);
 
   switch(action.actionType) {
+
+    case FileManagerConstants.CHANGE_PATH:
+      clearStore();
+      break;
 
     case FileManagerConstants.SET_FILE_SELECTION:
     case FileManagerConstants.MOVE_SELECTION:

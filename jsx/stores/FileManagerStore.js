@@ -7,6 +7,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var FileManagerConstants = require('../constants/FileManagerConstants');
 var FileManagerActions = require('../actions/FileManagerActions');
 var fileViewable = require('../utils/FileViewable');
+var API = require('../utils/API');
 
 var CHANGE_EVENT = 'change';
 var FILE_CHANGE_EVENT = 'file-change';
@@ -27,43 +28,18 @@ var _storeData = {
   }
 };
 
-function openFile(file) {
-  $.ajax({
-    url: '/open',
-    data: { address: file.path }
-  });
-}
-
 function setPath(path) {
-  $.ajax({
-    url: '/ls',
-    data: { address: path },
-    success: (data) => {
-      _storeData.dirData = data.dirData;
-      _storeData.files = data.files;
-      _storeData.files.forEach(f => {
-        _storeData.filesMap[f.id] = f;
-      });
-      _storeData.files.forEach(setFileIcon);
-      _storeData.path = path;
-      window.history.pushState('Object', 'Title', '/path=' + path);
+  API.lsCommand(path, data => {
+    _storeData.dirData = data.dirData;
+    _storeData.files = data.files;
+    _storeData.files.forEach(f => {
+      _storeData.filesMap[f.id] = f;
+    });
+    _storeData.files.forEach(setFileIcon);
+    _storeData.path = path;
+    window.history.pushState('Object', 'Title', '/path=' + path);
 
-      FileManagerStore.emitChange();
-    }
-  });
-}
-
-function moveFile(fromPath, toPath) {
-  $.ajax({
-    url: '/mv',
-    data: { from: fromPath, to: toPath }
-  });
-}
-
-function copyFile(fromPath, toPath) {
-  $.ajax({
-    url: '/cp',
-    data: { from: fromPath, to: toPath }
+    FileManagerStore.emitChange();
   });
 }
 
@@ -174,13 +150,6 @@ function moveSelection(direction) {
   }
 }
 
-function removeFile(file) {
-  $.ajax({
-    url: '/rm',
-    data: { address: file.path }
-  });
-}
-
 function sortFilesBy(method, order) {
   _storeData.sort.method = method;
   _storeData.sort.order = order;
@@ -233,10 +202,7 @@ function setFileIcon(file) {
 function createDirectory(name) {
   var dirPath = path.join(_storeData.path, name);
 
-  $.ajax({
-    url: '/mkdir',
-    data: { address: dirPath }
-  });
+  API.mkdirCommand(dirPath);  
 }
 
 var FileManagerStore = assign({}, EventEmitter.prototype, {
@@ -346,19 +312,21 @@ FileManagerStore.dispatchToken = AppDispatcher.register(function(action) {
       break;
 
     case FileManagerConstants.OPEN_FILE:
-      openFile(FileManagerStore.getFile(action.id));
+      var filePath = FileManagerStore.getFile(action.id).path;
+      API.openFile(filePath);
       break;
 
     case FileManagerConstants.MOVE_FILE:
-      moveFile(action.fromPath, action.toPath);
+      API.mvCommand(action.fromPath, action.toPath);
       break;
 
     case FileManagerConstants.COPY_FILE:
-      copyFile(action.fromPath, action.toPath);
+      API.cpCommand(action.fromPath, action.toPath);
       break;
 
     case FileManagerConstants.REMOVE_FILE:
-      removeFile(FileManagerStore.getFile(action.id));
+      var filePath = FileManagerStore.getFile(action.id).path;
+      API.rmCommand(filePath);
       break;
 
     default:

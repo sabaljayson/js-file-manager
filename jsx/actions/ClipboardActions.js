@@ -25,7 +25,7 @@ var ClipboardActions = {
 
   resetClipboard: function() {
     AppDispatcher.dispatch({
-      actionType: ClipboardConstants.RESET_CLIBOARD
+      actionType: ClipboardConstants.RESET_CLIPBOARD
     });
   }
 };

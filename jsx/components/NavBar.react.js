@@ -9,8 +9,8 @@ class NavBar extends React.Component {
 
 	render() {
 		return (
-			<div className='navbar navbar-primary navbar-fixed-top' style={{marginBottom: 0, paddingRight: 10}}>
-				<div className='row'>
+			<div className='navbar navbar-primary navbar-fixed-top' style={{paddingRight: 10}}>
+				<div className='row' style={{marginBottom: 1}}>
 				  <div className='col-md-12'>
 						<DirectoriesBreadcrumb path={this.props.path}/>
 

@@ -84,13 +84,14 @@ class RenameModal extends React.Component {
     }
     
     var fileInd = 0;
-    for (var i of range(from, to + 1)) {
+
+    range(from, to + 1).forEach(i => {
       var file = files[fileInd++];
 
       var dirName = path.dirname(file.path);
       var newPath = path.join(dirName, pattern.replace('{i}', i));
       FileManagerActions.moveFile(file.path, newPath);
-    }
+    });
 
     FileOperationActions.closeModal();
   }

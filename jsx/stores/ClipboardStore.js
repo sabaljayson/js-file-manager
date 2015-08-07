@@ -1,6 +1,8 @@
 var path = require('path');
 var assign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
+
+var API = require('../utils/API');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var FileManagerStore = require('../stores/FileManagerStore');
 var FileManagerActions = require('../actions/FileManagerActions');
@@ -16,18 +18,20 @@ var _storeData = {
 function pasteFiles(pastePath) {
   _storeData.toCopyFiles.forEach(f => {
     var baseName = path.basename(f.path);
-    FileManagerActions.copyFile(f.path, path.join(pastePath, baseName));
+    API.cpCommand(f.path, path.join(pastePath, baseName));
   });
 
   _storeData.toCutFiles.forEach(f => {
     var baseName = path.basename(f.path);
-    FileManagerActions.moveFile(f.path, path.join(pastePath, baseName));
+    API.mvCommand(f.path, path.join(pastePath, baseName));
   });
 }
 
 function clearStore() {
   _storeData.toCutFiles = [];
-  _storeData.toCopyFiles = [];  
+  _storeData.toCopyFiles = [];
+  
+  ClipboardStore.emitChange();
 }
 
 var ClipboardStore = assign({}, EventEmitter.prototype, {

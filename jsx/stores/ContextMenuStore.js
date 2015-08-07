@@ -46,15 +46,6 @@ function getBackgroundItems() {
       inactive: true,
       label: 'Properties',
       onclick: () => FileOperationActions.filesProperties([currentDir])
-    },
-    { type: 'delimiter' },
-    {
-      inactive: true,
-      label: 'Open terminal'
-    },
-    {
-      inactive: true,
-      label: 'Execute JS'
     }
   ];
 }
