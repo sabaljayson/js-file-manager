@@ -43,6 +43,14 @@ body {
 	overflow: hidden;
 }
 
+.list-file-element {
+	cursor: pointer;
+}
+
+.list-file-element:hover, .list-file-element.selected {
+	color: #009688;
+}
+
 .grid-file-element.selected .thumbnail {
 	border-color: #009688;
 	color: #009688;

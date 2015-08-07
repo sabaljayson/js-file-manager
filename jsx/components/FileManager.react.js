@@ -7,7 +7,8 @@ var FileOperationModal = require('./FileOperationModal.react');
 var DocumentTitle = require('react-document-title');
 var ContextMenu = require('./ContextMenu.react');
 var ContentPane = require('./ContentPane.react');
-var FilesGrid = require('./FilesGrid.react');
+var FilesGrid = require('./grid-view/FilesGrid.react');
+var FilesList = require('./list-view/FilesList.react');
 var NavBar = require('./NavBar.react');
 
 function getState() {
@@ -49,7 +50,7 @@ class FileManager extends React.Component {
 					<NavBar path={this.state.path} />
 		      <div className='row' style={{padding: '0px 10px'}}>
 		        <div className={split1} style={{borderRight: '1px solid #eee', zIndex: 10, paddingRight: 0}}>
-		          <FilesGrid />
+		          <FilesList />
 		        </div>
 		        <div className={split2} style={{height: '100%', padding: 0, background: '#eee'}}>
 		          <ContentPane />
