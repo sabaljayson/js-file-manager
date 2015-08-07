@@ -41,7 +41,7 @@ class ListFile extends React.Component {
           {file.filename}
         </td>
         <td>
-          {fileSize(file.size)}
+          {file.is_dir ? '<directory>' : fileSize(file.size)}
         </td>
         <td>
           {new Date(file.mtime).toLocaleDateString()}

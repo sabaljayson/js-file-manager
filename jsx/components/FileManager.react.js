@@ -5,11 +5,11 @@ var FileManagerStore = require('../stores/FileManagerStore');
 
 var FileOperationModal = require('./FileOperationModal.react');
 var DocumentTitle = require('react-document-title');
+var NavBar = require('./navbar/NavBar.react');
 var ContextMenu = require('./ContextMenu.react');
 var ContentPane = require('./ContentPane.react');
 var FilesGrid = require('./grid-view/FilesGrid.react');
 var FilesList = require('./list-view/FilesList.react');
-var NavBar = require('./NavBar.react');
 
 function getState() {
 	return {

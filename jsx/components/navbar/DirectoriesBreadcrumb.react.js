@@ -1,7 +1,7 @@
 var React = require('react');
 var path = require('path');
 var querystring = require('querystring');
-var FMActions = require('../actions/FileManagerActions');
+var FMActions = require('../../actions/FileManagerActions');
 
 class DirectoriesBreadcrumb extends React.Component {
   constructor(props) {

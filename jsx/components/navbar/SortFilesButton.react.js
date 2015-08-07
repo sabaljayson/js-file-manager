@@ -1,5 +1,5 @@
 var React = require('react');
-var FileManagerActions = require('../actions/FileManagerActions');
+var FileManagerActions = require('../../actions/FileManagerActions');
 
 class SortFilesButton extends React.Component {
   constructor(props) {
