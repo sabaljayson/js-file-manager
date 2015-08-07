@@ -313,7 +313,7 @@ FileManagerStore.dispatchToken = AppDispatcher.register(function(action) {
 
     case FileManagerConstants.OPEN_FILE:
       var filePath = FileManagerStore.getFile(action.id).path;
-      API.openFile(filePath);
+      API.openCommand(filePath);
       break;
 
     case FileManagerConstants.MOVE_FILE:

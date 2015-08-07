@@ -36,9 +36,10 @@ function onSelectionChange() {
   var selFiles = FileManagerStore.getSelectedFiles();
   if (selFiles.length === 1 && ! selFiles[0].is_dir) {
     _storeData.selectedFile = selFiles[0];
+    _storeData.value = false;
 
-    if (_storeData.selectedFile.image) {
-      ContentPaneStore.emitChange();  
+    if (_storeData.selectedFile.is_image) {
+      ContentPaneStore.emitChange();
     }
     else {
       updateValue(_storeData.selectedFile.path);
