@@ -15,6 +15,7 @@ var FILE_CHANGE_EVENT = 'file-change';
 var _storeData = {
   path: '/',
   socket: null,
+  filesViewType: 'grid',
   files: [],
   filesMap: {},
   fileChangeListeners: {},
@@ -184,7 +185,11 @@ function updateFilesThumbnails() {
   for (var id in files) {
     var file = files[id];
     if (file.mime.indexOf('image') > -1) {
-      var top = $('#' + file.id).offset().top;
+      var $file = $('#' + file.id);
+      if (! $file.length)
+        break;
+      
+      var top = $file.offset().top;
 
       if (scrollTop <= top && top <= scrollBottom) {
         _storeData.filesMap[file.id].thumbSrc = CONSTS.BASE_PATH + '/thumb' + file.path
@@ -244,6 +249,10 @@ var FileManagerStore = assign({}, EventEmitter.prototype, {
     return _storeData.dirData;
   },
 
+  getFilesViewType: function() {
+    return _storeData.filesViewType;
+  },
+
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
@@ -271,7 +280,8 @@ var FileManagerStore = assign({}, EventEmitter.prototype, {
 
   removeFileChangeListener: function(id) {
     this.removeListener(FILE_CHANGE_EVENT, _storeData.fileChangeListeners[id]);
-  },  
+    delete _storeData.fileChangeListeners[id]
+  },
 });
 FileManagerStore.setMaxListeners(0); // Unlimited file change listeners
 
@@ -290,6 +300,11 @@ FileManagerStore.dispatchToken = AppDispatcher.register(function(action) {
 
     case FileManagerConstants.SORT_FILES_BY:
       sortFilesBy(action.method, action.order);
+      FileManagerStore.emitChange();
+      break;
+
+    case FileManagerConstants.SET_FILES_VIEW_TYPE:
+      _storeData.filesViewType = action.type;
       FileManagerStore.emitChange();
       break;
 

@@ -12,14 +12,16 @@ class SortFilesButton extends React.Component {
 
   render() {
   	return (
-      <li className="dropdown">
-        <a href="#" className="dropdown-toggle" data-toggle="dropdown"><i className="mdi-content-sort"></i></a>
-        <ul className="dropdown-menu">
+      <li className='dropdown'>
+        <a href='#' className='dropdown-toggle' data-toggle='dropdown'>
+          <i className='material-icons'>sort_by_alpha</i>
+        </a>
+        <ul className='dropdown-menu'>
           <li><a onClick={this._sortByMethod('name')}>Name</a></li>
           <li><a onClick={this._sortByMethod('type')}>Type</a></li>
           <li><a onClick={this._sortByMethod('size')}>Size</a></li>
           <li><a onClick={this._sortByMethod('mtime')}>Modification Time</a></li>
-          <li className="divider"></li>
+          <li className='divider'></li>
           <li><a onClick={this._reverseSort.bind(this)}>Inverse</a></li>
         </ul>
       </li>

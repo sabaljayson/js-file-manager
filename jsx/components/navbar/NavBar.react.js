@@ -1,6 +1,7 @@
 var React = require('react');
 var DirectoriesBreadcrumb = require('./DirectoriesBreadcrumb.react');
 var SortFilesButton = require('./SortFilesButton.react');
+var FilesViewButton = require('./FilesViewButton.react');
 
 class NavBar extends React.Component {
 	constructor(props) {
@@ -15,6 +16,7 @@ class NavBar extends React.Component {
 						<DirectoriesBreadcrumb path={this.props.path}/>
 
 				    <ul className='nav navbar-nav navbar-right'>
+				    	<FilesViewButton viewType={this.props.viewType}/>
 							<SortFilesButton/>
 				      <li>
 				      	<a><i className='mdi-action-settings'></i></a>

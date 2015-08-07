@@ -4,6 +4,7 @@ module.exports = constance('FILE_MANAGER_CONSTANTS_', [
   'CHANGE_PATH',
   'WATCH_DIRECTORY',
 
+  'SET_FILES_VIEW_TYPE',
   'SORT_FILES_BY',
   'UPDATE_FILES_THUMBS',
 

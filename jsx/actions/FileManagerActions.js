@@ -19,6 +19,13 @@ var FileManagerActions = {
     });
   },
 
+  setFilesViewType: function(viewType) {
+    AppDispatcher.dispatch({
+      actionType: FileManagerConstants.SET_FILES_VIEW_TYPE,
+      type: viewType
+    });
+  },
+
   sortFilesBy: function(method, order) {
     AppDispatcher.dispatch({
       actionType: FileManagerConstants.SORT_FILES_BY,

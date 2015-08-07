@@ -18,10 +18,13 @@ class FilesGrid extends React.Component {
   constructor(props) {
     super(props);
     this.state = getState();
+
+    this._onChange = this._onChange.bind(this);
+    this._onContextMenu = this._onContextMenu.bind(this);
   }
 
   componentDidMount() {
-    FileManagerStore.addChangeListener(this._onChange.bind(this));
+    FileManagerStore.addChangeListener(this._onChange);
 
     // load thumbs if stops/slows scrolling    
     $('.files-grid-element').bind('scroll',
@@ -40,7 +43,7 @@ class FilesGrid extends React.Component {
   }
 
   componentWillUnmount() {
-    FileManagerStore.removeChangeListener(this._onChange.bind(this));
+    FileManagerStore.removeChangeListener(this._onChange);
   }
 
   componentDidUpdate() {
@@ -63,7 +66,7 @@ class FilesGrid extends React.Component {
         style={styles}
         className='files-grid-element'
         onClick={this._onClick}
-        onContextMenu={this._onContextMenu.bind(this)} >
+        onContextMenu={this._onContextMenu} >
         <div>
           {folders.map(f => <GridFolder key={f.id} id={f.id}></GridFolder>)}
         </div>
