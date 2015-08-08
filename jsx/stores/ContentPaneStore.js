@@ -5,6 +5,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var FileManagerStore = require('../stores/FileManagerStore');
 var FileManagerConstants = require('../constants/FileManagerConstants');
 var ContentPaneConstants = require('../constants/ContentPaneConstants');
+var API = require('../utils/API');
 
 var CHANGE_EVENT = 'change';
 
@@ -22,13 +23,9 @@ function clearStore() {
 }
 
 function updateValue(path) {
-  $.ajax({
-    url: '/get' + path,
-    dataType: 'text',
-    success: function(value) {
-      _storeData.value = value;
-      ContentPaneStore.emitChange();
-    }
+  API.getCommand(path, function(value) {
+    _storeData.value = value;
+    ContentPaneStore.emitChange();
   });
 }
 
@@ -38,7 +35,7 @@ function onSelectionChange() {
     _storeData.selectedFile = selFiles[0];
     _storeData.value = false;
 
-    if (_storeData.selectedFile.is_image) {
+    if (_storeData.selectedFile.is_image || _storeData.selectedFile.is_video) {
       ContentPaneStore.emitChange();
     }
     else {

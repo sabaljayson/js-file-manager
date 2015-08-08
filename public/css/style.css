@@ -47,7 +47,11 @@ body {
 	cursor: pointer;
 }
 
-.list-file-element:hover, .list-file-element.selected {
+.list-file-element:hover {
+	background-color: rgba(0, 150, 136, 0.17);
+}
+
+.list-file-element.selected {
 	color: #009688;
 }
 

@@ -1,4 +1,22 @@
+var Path = require('path');
+
 module.exports = {
+
+	getCommand: function(path, callback) {
+	  $.ajax({
+	    url:  Path.join('/get', path),
+	    dataType: 'text',
+	    success: callback
+	  });
+	},
+
+	setCommand: function(path, data, callback) {
+	  $.ajax({
+	    url: '/set',
+	    data: { address: path, data: data },
+	    success: callback
+	  });
+	},
 
 	lsCommand: function(path, callback) {
 	  $.ajax({
@@ -8,38 +26,43 @@ module.exports = {
 	  });
 	},
 
-	openCommand: function(path) {
+	openCommand: function(path, callback) {
 	  $.ajax({
 	    url: '/open',
-	    data: { address: path }
+	    data: { address: path },
+	    success: callback
 	  });
 	},
 
-	mvCommand: function(fromPath, toPath) {
+	mvCommand: function(fromPath, toPath, callback) {
 	  $.ajax({
 	    url: '/mv',
-	    data: { from: fromPath, to: toPath }
+	    data: { from: fromPath, to: toPath },
+	    success: callback
 	  });
 	},
 
-	cpCommand: function(fromPath, toPath) {
+	cpCommand: function(fromPath, toPath, callback) {
 	  $.ajax({
 	    url: '/cp',
-	    data: { from: fromPath, to: toPath }
+	    data: { from: fromPath, to: toPath },
+	    success: callback
 	  });
 	},
 
-	rmCommand: function(path) {
+	rmCommand: function(path, callback) {
 		$.ajax({
 	    url: '/rm',
-	    data: { address: path }
+	    data: { address: path },
+	    success: callback
 	  });
 	},
 
-	mkdirCommand: function(path) {
+	mkdirCommand: function(path, callback) {
 		$.ajax({
 	    url: '/mkdir',
-	    data: { address: path }
+	    data: { address: path },
+	    success: callback
 	  });
 	}
 };

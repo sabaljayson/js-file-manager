@@ -2,15 +2,19 @@ var React = require('react');
 var brace = require('brace');
 var path = require('path');
 var AceEditor = require('react-ace');
-
+var ButtonToolbar = require('react-bootstrap').ButtonToolbar;
+var Button = require('react-bootstrap').Button;
+var modelist = ace.require("ace/ext/modelist");
 requireBraceModes();
 require('brace/theme/monokai');
 
-var modelist = ace.require("ace/ext/modelist");
+var API = require('../utils/API');
 
 class TextEditor extends React.Component {
   constructor(props) {
     super(props);
+
+    this.currentValue = props.value;
   }
 
   render() {
@@ -20,15 +24,47 @@ class TextEditor extends React.Component {
   	var mode = modelist.getModeForPath(file.path).name;
 
     return (
-			<AceEditor
-			  value={value}
-			  fontSize={16}
-			  mode={mode}
-			  theme='monokai'
-			  width='100%'
-			  height='100%'
-			  name='SOME_UNIQUE_ID_OF_DIV' />
+    	<div style={{display: 'table', width: '100%', height: '100%'}}>
+	    	<div style={{display: 'table-row'}}>
+					<AceEditor
+					  value={value}
+					  onChange={this._onTextChange.bind(this)}
+					  fontSize={16}
+					  mode={mode}
+					  theme='monokai'
+					  width='100%'
+					  height='100%'
+					  name='SOME_UNIQUE_ID_OF_DIV' />    	
+	    	</div>
+	    	<div style={{display: 'table-row', height: 50}}>
+					<div style={{background: 'white'}}>
+						<span className='label label-default'>
+							{file.path}
+						</span>
+						<div className='pull-right'>
+							<ButtonToolbar>
+								<Button bsStyle='primary' onClick={this._resetDefault.bind(this)}>Reset default</Button>
+								<Button bsStyle='success' onClick={this._saveChanges.bind(this)}>Save changes</Button>
+							</ButtonToolbar>
+						</div>
+					</div>
+	    	</div>	    	
+	    </div>
     )
+  }
+
+  _resetDefault() {
+  	this.forceUpdate();
+  }
+
+  _saveChanges() {
+  	if (confirm('Are you sure?')) {
+  		API.setCommand(this.props.file.path, this.currentValue);
+  	}
+  }
+
+  _onTextChange(newVal) {
+  	this.currentValue = newVal;
   }
 }
 

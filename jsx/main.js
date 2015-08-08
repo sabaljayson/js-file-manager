@@ -5,7 +5,6 @@ var mousetrap = require('mousetrap');
 var FileManagerActions = require('./actions/FileManagerActions');
 var FileManagerStore = require('./stores/FileManagerStore');
 var FileManager = require('./components/FileManager.react');
-var FileOperationModal = require('./components/FileOperationModal.react');
 
 $(document).ready(function() {
 	// Enable material effects

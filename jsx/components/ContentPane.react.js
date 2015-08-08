@@ -32,9 +32,8 @@ class ContentPane extends React.Component {
     if (! file)
       return false;
 
-    if (file.is_image) {
-      var url = CONSTS.BASE_PATH + '/get' + file.path;
-      return <ZoomableImage src={url} />
+    if (file.is_image || file.is_video) {      
+      return <ZoomableImage file={file} />
     }
     else if (file.size < this.FILE_SIZE_THRESHOLD) {
       return <TextEditor file={file} value={this.state.value} />;

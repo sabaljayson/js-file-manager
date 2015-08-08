@@ -16,20 +16,38 @@ class ZoomableImage extends React.Component {
   }
 
   render() {
+    var file = this.props.file;
+    var url = CONSTS.BASE_PATH + '/get' + file.path;
     var zoomLevel = this.state.zoomLevel;
-    var imageStyle = {
-      maxWidth: '90%',
-      maxGeight: '90%'
+    var viewerStyle = {
+      maxWidth: '80%',
+      maxHeight: '100%'
     };
+
+    var viewerComponent = false;
+
+    if (file.is_image) {
+      viewerComponent = (
+        <img
+          draggable='false'
+          onWheel={this._onWheel.bind(this)}
+          src={url}
+          style={viewerStyle} />
+      )
+    }
+    else if (file.is_video) {
+      viewerComponent = (
+        <video controls autoPlay style={viewerStyle}>
+          <source src={url} type={file.mime} />
+          Your browser does not support the video tag.
+        </video>
+      )
+    }
 
   	return (
       <div style={{transform: 'scale(' + zoomLevel + ', ' + zoomLevel + ')'}}>
         <Draggable zIndex={0}>
-          <img
-            draggable='false'
-            onWheel={this._onWheel.bind(this)}
-            src={this.props.src}
-            style={imageStyle} />
+          {viewerComponent}
         </Draggable>
       </div>
     )

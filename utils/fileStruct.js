@@ -21,6 +21,7 @@ module.exports = function(pathToFile) {
 		size: stats.size,
 		mtime: stats.mtime,
 		selected: false,
-		is_image: fileMime.has('image')
+		is_image: fileMime.has('image'),
+		is_video: fileMime.has('video')
 	};
 };
