@@ -2,6 +2,14 @@ var Path = require('path');
 
 module.exports = {
 
+	directoryUrl: function(path) {
+		return CONSTS.BASE_PATH + Path.join('/path=', path);
+	},
+
+	fileUrl: function(path) {
+		return CONSTS.BASE_PATH + Path.join('/get', path);
+	},
+
 	getCommand: function(path, callback) {
 	  $.ajax({
 	    url:  Path.join('/get', path),

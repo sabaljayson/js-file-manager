@@ -38,8 +38,7 @@ function setPath(path) {
     });
     _storeData.files.forEach(setFileIcon);
     _storeData.path = path;
-    window.history.pushState('Object', 'Title', '/path=' + path);
-
+    
     FileManagerStore.emitChange();
   });
 }

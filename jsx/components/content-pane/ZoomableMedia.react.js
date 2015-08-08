@@ -1,6 +1,8 @@
 var React = require('react');
 var Draggable = require('react-draggable');
 
+var API = require('../../utils/API');
+
 var defaultState = {
   zoomLevel: 1
 };
@@ -17,7 +19,7 @@ class ZoomableMedia extends React.Component {
 
   render() {
     var file = this.props.file;
-    var url = CONSTS.BASE_PATH + '/get' + file.path;
+    var url = API.fileUrl(file.path);
     var zoomLevel = this.state.zoomLevel;
     var viewerStyle = {
       maxWidth: '100%',

@@ -8,7 +8,7 @@ var FileOperationActions = require('../actions/FileOperationActions');
 var ContextMenuConstants = require('../constants/ContextMenuConstants');
 var FileManagerStore = require('../stores/FileManagerStore');
 var ClipboardStore = require('../stores/ClipboardStore');
-
+var API = require('../utils/API');
 
 var CHANGE_EVENT = 'change';
 
@@ -19,10 +19,18 @@ var _storeData = {
   items: []
 };
 
-function openInNewTab(dir) {
-  var url = CONSTS.BASE_PATH + '/path=' + dir.path;
+function openInNewTab(file) {
+  var url;
+
+  if (file.is_dir) {
+    url = API.directoryUrl(file.path);
+  }
+  else {
+    url = API.fileUrl(file.path);
+  }
+  
   var win = window.open(url, '_blank');
-  win.focus();  
+  win.focus();
 }
 
 function getBackgroundItems() {
@@ -78,16 +86,29 @@ function getFileItems(selectedFiles) {
     dirs = selectedFiles.filter(f => f.is_dir);
 
   var selLabel = getSelLabel(files, dirs);
+  var items = [];
 
-  var items = [{
-    label: 'Open ' + selLabel,
+  if (dirs.length <= 1) {
+    items.push({
+      label: 'Open ' + selLabel,
+      onclick: () => {
+        dirs.forEach(dir => FileManagerActions.changePath(dir.path));
+        files
+          .map(f => f.id)
+          .forEach(FileManagerActions.openFile);
+      }
+    })
+  }
+
+  items.push({
+    label: 'Open in new tab ' + selLabel,
     onclick: () => {
-      dirs.forEach(openInNewTab);
-      files
-        .map(f => f.id)
-        .forEach(FileManagerActions.openFile);
+      dirs.concat(files).forEach(openInNewTab);
     }
-  }, {
+  });
+
+  items = items.concat([
+  {
     label: 'Rename ' + selLabel,
     onclick: () => FileOperationActions.renameFiles(selectedFiles)
   }, {
@@ -113,7 +134,7 @@ function getFileItems(selectedFiles) {
     inactive: true,
     label: 'Properties',
     onclick: () => FileOperationActions.filesProperties(selectedFiles)
-  }];
+  }]);
 
   return items;
 }
