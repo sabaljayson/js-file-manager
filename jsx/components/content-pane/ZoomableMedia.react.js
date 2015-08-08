@@ -5,7 +5,7 @@ var defaultState = {
   zoomLevel: 1
 };
 
-class ZoomableImage extends React.Component {
+class ZoomableMedia extends React.Component {
   constructor(props) {
   	super(props);
     this.state = defaultState;
@@ -61,4 +61,4 @@ class ZoomableImage extends React.Component {
   }
 }
 
-module.exports = ZoomableImage;
+module.exports = ZoomableMedia;

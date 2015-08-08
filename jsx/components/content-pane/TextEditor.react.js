@@ -8,7 +8,7 @@ var modelist = ace.require("ace/ext/modelist");
 requireBraceModes();
 require('brace/theme/monokai');
 
-var API = require('../utils/API');
+var API = require('../../utils/API');
 
 class TextEditor extends React.Component {
   constructor(props) {
@@ -72,7 +72,7 @@ module.exports = TextEditor;
 
 function requireBraceModes() {
 	var includeFolder = require('include-folder');
-	var modes = includeFolder(path.join(__dirname, '../../node_modules/brace/mode'));
+	var modes = includeFolder(path.join(__dirname, '../../../node_modules/brace/mode'));
 
 	for (var key in modes) {
 		eval(modes[key]);

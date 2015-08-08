@@ -5,8 +5,8 @@ var DocumentTitle = require('react-document-title');
 var FileManagerStore = require('../stores/FileManagerStore');
 
 var NavBar = require('./navbar/NavBar.react');
+var ContentPane = require('./content-pane/ContentPane.react');
 var ContextMenu = require('./ContextMenu.react');
-var ContentPane = require('./ContentPane.react');
 var FilesGrid = require('./grid-view/FilesGrid.react');
 var FilesList = require('./list-view/FilesList.react');
 var FileOperationModal = require('./modals/FileOperationModal.react');

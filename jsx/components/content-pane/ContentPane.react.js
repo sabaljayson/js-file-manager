@@ -1,8 +1,8 @@
 var React = require('react');
 
-var TextEditor = require('../components/TextEditor.react');
-var ZoomableImage = require('../components/ZoomableImage.react');
-var ContentPaneStore = require('../stores/ContentPaneStore');
+var TextEditor = require('./TextEditor.react');
+var ZoomableMedia = require('./ZoomableMedia.react');
+var ContentPaneStore = require('../../stores/ContentPaneStore');
 
 function getState() {
   return {
@@ -33,7 +33,7 @@ class ContentPane extends React.Component {
       return false;
 
     if (file.is_image || file.is_video) {      
-      return <ZoomableImage file={file} />
+      return <ZoomableMedia file={file} />
     }
     else if (file.size < this.FILE_SIZE_THRESHOLD) {
       return <TextEditor file={file} value={this.state.value} />;
