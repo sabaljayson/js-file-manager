@@ -85,8 +85,8 @@
 					var nodeInSelect = selectRect.y1 <= pos.top && pos.top <= selectRect.y2;
 
 					if (nodeInView || nodeInSelect) {
-						var width = $node.width();
-						var height = $node.height();						
+						var width = $node.outerWidth();
+						var height = $node.outerHeight();						
 
 						var elementRect = rectangleCoords(pos.left, pos.top, pos.left + width, pos.top + height);
 

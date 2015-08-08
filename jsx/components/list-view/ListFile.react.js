@@ -29,6 +29,14 @@ class ListFile extends React.Component {
       return false;
     }
 
+    var icon = false;
+    if (file.is_dir) {
+      icon = <i className='mdi-file-folder mdi-material-grey' />;
+    }
+    else {
+      icon = <img src={file.thumbSrc} style={{width: 25, marginRight: 5}} />;
+    }
+
     return (
       <tr
         className={'list-file-element ' + selectedClass}
@@ -37,7 +45,7 @@ class ListFile extends React.Component {
         onContextMenu={this._onContextMenu.bind(this)} >
 
         <td>
-          <img src={file.thumbSrc} style={{width: 25, marginRight: 5}} />
+          {icon}
           {file.filename}
         </td>
         <td>

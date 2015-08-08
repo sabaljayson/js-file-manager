@@ -28,6 +28,7 @@ class GridFolder extends React.Component {
 
     return (
       <a
+        title={file.filename}
         id={this.props.id}
         onClick={this._onClick.bind(this)}
         onContextMenu={this._onContextMenu.bind(this)}

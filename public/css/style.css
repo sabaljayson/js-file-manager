@@ -23,10 +23,12 @@ body {
 .grid-folder-element {
 	width: 150px;
 	margin: 10px !important;
-	line-height: 27px;
-	padding-left: 10px;
-	overflow: hidden;
-
+  padding-left: 10px !important;
+  padding-right: 0 !important;
+	overflow: hidden !important;
+  text-overflow: ellipsis;
+  line-height: 24px;
+  font-size: 13px;
 	border: 1px solid white !important;
 }
 
@@ -67,6 +69,17 @@ body {
 
 .grid-file-element i {
 	font-size: 100px !important;
+}
+
+.grid-folder-element i {
+  position: relative;
+  top: -3px;
+}
+
+.list-file-element i {
+	position: relative;
+  top: 3px;
+  margin-right: 5px;
 }
 
 .dropdown-menu {
