@@ -8,14 +8,6 @@ class DirectoriesBreadcrumb extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
-    $.material.init();
-  }
-
-  componentDidUpdate() {
-    $.material.init();
-  }
-
   render() {
     var pathArr = this.props.path.split(path.sep);
     if (! pathArr[0].length) {
@@ -32,13 +24,17 @@ class DirectoriesBreadcrumb extends React.Component {
 
       return (
         <li key={ind}>
-          <a onClick={()=>{FMActions.changePath(currentPath)}}>{dir}</a>
+          <a
+            className='material-ripples'
+            onClick={()=>{FMActions.changePath(currentPath)}}>
+            {dir}
+          </a>
         </li>
       )
     }
 
     return (
-      <div className="nav navbar-nav navbar-left directories-breadcrumb">
+      <div className='nav navbar-nav navbar-left directories-breadcrumb'>
         {pathArr.map(dirToLink)}
       </div>
     )

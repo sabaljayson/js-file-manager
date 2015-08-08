@@ -41,7 +41,7 @@ class ListFile extends React.Component {
       <tr
         className={'list-file-element ' + selectedClass}
         id={file.id}
-        onClick={this._onClick.bind(this)}
+        onDoubleClick={this._onDoubleClick.bind(this)}
         onContextMenu={this._onContextMenu.bind(this)} >
 
         <td>
@@ -58,9 +58,12 @@ class ListFile extends React.Component {
   	)
   }
 
-  _onClick() {
+  _onDoubleClick() {
     if (this.state.is_dir) {
       FileManagerActions.changePath(this.state.path);
+    }
+    else {
+      FileManagerActions.openFile(this.state.id);
     }
   }
 

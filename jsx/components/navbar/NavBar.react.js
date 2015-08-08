@@ -19,7 +19,9 @@ class NavBar extends React.Component {
 				    	<FilesViewButton viewType={this.props.viewType}/>
 							<SortFilesButton/>
 				      <li>
-				      	<a><i className='mdi-action-settings'></i></a>
+				      	<a className='material-ripples'>
+				      		<i className='mdi-action-settings'></i>
+				      	</a>
 				      </li>
 				    </ul>
 					</div>

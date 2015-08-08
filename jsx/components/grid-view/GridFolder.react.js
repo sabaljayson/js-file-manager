@@ -30,7 +30,7 @@ class GridFolder extends React.Component {
       <a
         title={file.filename}
         id={this.props.id}
-        onClick={this._onClick.bind(this)}
+        onDoubleClick={this._onDoubleClick.bind(this)}
         onContextMenu={this._onContextMenu.bind(this)}
         className={'grid-folder-element btn btn-default btn-raised ' + selectedClass}>
         <i className='pull-left mdi-file-folder mdi-material-grey'></i>
@@ -43,7 +43,7 @@ class GridFolder extends React.Component {
     this.setState(FileManagerStore.getFile(this.props.id));
   }
 
-  _onClick() {
+  _onDoubleClick() {
     FileManagerActions.changePath(this.state.path);
   }
 

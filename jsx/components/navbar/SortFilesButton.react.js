@@ -13,7 +13,7 @@ class SortFilesButton extends React.Component {
   render() {
   	return (
       <li className='dropdown'>
-        <a href='#' className='dropdown-toggle' data-toggle='dropdown'>
+        <a href='#' className='dropdown-toggle material-ripples' data-toggle='dropdown'>
           <i className='material-icons'>sort_by_alpha</i>
         </a>
         <ul className='dropdown-menu'>
