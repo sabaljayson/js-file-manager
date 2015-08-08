@@ -20,8 +20,8 @@ class ZoomableMedia extends React.Component {
     var url = CONSTS.BASE_PATH + '/get' + file.path;
     var zoomLevel = this.state.zoomLevel;
     var viewerStyle = {
-      maxWidth: '80%',
-      maxHeight: '100%'
+      maxWidth: '100%',
+      maxHeight: '80%'
     };
 
     var viewerComponent = false;
@@ -41,6 +41,14 @@ class ZoomableMedia extends React.Component {
           <source src={url} type={file.mime} />
           Your browser does not support the video tag.
         </video>
+      )
+    }
+    else if (file.is_audio) {
+      viewerComponent = (
+        <audio controls autoPlay>
+          <source src={url} type={file.mime} />
+          Your browser does not support the audio tag.
+        </audio>
       )
     }
 

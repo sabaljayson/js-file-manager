@@ -15,13 +15,14 @@ module.exports = function(pathToFile) {
 	return {
 		filename: path.basename(pathToFile),
 		path: pathToFile,
-		is_dir: isDir,
 		mime: fileMime,
 		id: md5(pathToFile),
 		size: stats.size,
 		mtime: stats.mtime,
 		selected: false,
+		is_dir: isDir,
 		is_image: fileMime.has('image'),
-		is_video: fileMime.has('video')
+		is_video: fileMime.has('video'),
+		is_audio: fileMime.has('audio')
 	};
 };

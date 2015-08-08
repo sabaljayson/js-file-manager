@@ -15,8 +15,6 @@ class ContentPane extends React.Component {
   constructor(props) {
     super(props);
     this.state = getState();
-
-    this.FILE_SIZE_THRESHOLD = 0.25 * 1024 * 1024; // 0.25 mb;
   }
 
   componentDidMount() {
@@ -32,10 +30,10 @@ class ContentPane extends React.Component {
     if (! file)
       return false;
 
-    if (file.is_image || file.is_video) {      
+    if (file.is_image || file.is_video || file.is_audio) {      
       return <ZoomableMedia file={file} />
     }
-    else if (file.size < this.FILE_SIZE_THRESHOLD) {
+    else if (this.state.value) {
       return <TextEditor file={file} value={this.state.value} />;
     }
 

@@ -8,6 +8,7 @@ var ContentPaneConstants = require('../constants/ContentPaneConstants');
 var API = require('../utils/API');
 
 var CHANGE_EVENT = 'change';
+var FILE_SIZE_THRESHOLD = 0.25 * 1024 * 1024; // 0.25 mb;
 
 var defaultStoreData = {
   selectedFile: false,
@@ -35,11 +36,17 @@ function onSelectionChange() {
     _storeData.selectedFile = selFiles[0];
     _storeData.value = false;
 
-    if (_storeData.selectedFile.is_image || _storeData.selectedFile.is_video) {
+    var isMedia = _storeData.selectedFile.is_image ||
+      _storeData.selectedFile.is_video ||
+      _storeData.selectedFile.is_audio;
+
+    if (isMedia) {
       ContentPaneStore.emitChange();
     }
     else {
-      updateValue(_storeData.selectedFile.path);
+      if (_storeData.selectedFile.size < FILE_SIZE_THRESHOLD) {
+        updateValue(_storeData.selectedFile.path);
+      }
     }
   }
   else {
