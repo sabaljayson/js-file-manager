@@ -30,6 +30,7 @@ class GridFolder extends React.Component {
       <a
         title={file.filename}
         id={this.props.id}
+        onMouseDown={this._onMouseDown.bind(this)}
         onDoubleClick={this._onDoubleClick.bind(this)}
         onContextMenu={this._onContextMenu.bind(this)}
         className={'grid-folder-element btn btn-default btn-raised ' + selectedClass}>
@@ -41,6 +42,11 @@ class GridFolder extends React.Component {
 
   _onChange() {
     this.setState(FileManagerStore.getFile(this.props.id));
+  }
+
+  _onMouseDown() {
+    FileManagerActions.unselectAllFiles();
+    FileManagerActions.setFileSelection(this.state.id, true);
   }
 
   _onDoubleClick() {

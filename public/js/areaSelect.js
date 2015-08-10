@@ -18,6 +18,7 @@
 		var nodeSelected = {};
 		var initX = 0, initY = 0;
 		var rectNode = null;
+		var selectableElems = [];
 
 		$(container).mousedown(onMouseDown);
 		$(container).mousemove(onMouseMove);
@@ -38,17 +39,18 @@
 			if (e.which !== 1) // 1 == left button
 				return;
 
+			if (dotIsInAnyElement(e.pageX, e.pageY)) {
+				return;
+			}
+
 			rectNode = createRectNode(styles);
 			initX = e.pageX;
 			initY = e.pageY + container.scrollTop();
 
-			// all nodes are out of area at start
-			options.selectors.forEach(function(selector) {
-				container.find(selector).toArray().forEach(options.exitArea);
-			});
+			selectableElems = container.find(options.selectors.join()).toArray(); 
 
-			var pointRect = rectangleCoords(initX, initY, initX + 1, initY + 1);
-			callOnIntersect(options, pointRect);
+			// all nodes are out of area at start
+			selectableElems.forEach(options.exitArea);
 
 			e.preventDefault()
 		}
@@ -59,7 +61,7 @@
 			drawRect(rectNode, initX, initY, e.pageX, e.pageY + container.scrollTop());
 
 			var selectRect = rectangleCoords(initX, initY, e.pageX, e.pageY + container.scrollTop());
-			callOnIntersect(options, selectRect);
+			callOnIntersect(selectRect);
 		}
 		function onMouseUp(e) {
 			$(rectNode).remove();
@@ -68,38 +70,58 @@
 		function onMouseOut(e) {
 			onMouseUp(e);
 		}
-		function callOnIntersect(options, selectRect) {
+		function dotIsInAnyElement(x, y) {
+			var dotRect = rectangleCoords(x, y, x + 1, y + 1);
+
 			var scrollTop = container.scrollTop(),
 				scrollBottom = scrollTop + window.innerHeight;
 
-			options.selectors.forEach(function(selector) {
-				var all = container.find(selector);
-				
-				for (var i = 0; i < all.length; ++i) {
-					var $node = all.eq(i);
-					var pos = $node.offset();
+			for (var i = 0; i < selectableElems.length; ++i) {
+				var $node = $(selectableElems[i]);
+				var pos = $node.offset();
 
-					pos.top += container.scrollTop();
+				pos.top += container.scrollTop();
 
-					var nodeInView = scrollTop <= pos.top && pos.top <= scrollBottom;
-					var nodeInSelect = selectRect.y1 <= pos.top && pos.top <= selectRect.y2;
+				if (scrollTop <= pos.top && pos.top <= scrollBottom) {
+					var width = $node.outerWidth();
+					var height = $node.outerHeight();						
 
-					if (nodeInView || nodeInSelect) {
-						var width = $node.outerWidth();
-						var height = $node.outerHeight();						
+					var elementRect = rectangleCoords(pos.left, pos.top, pos.left + width, pos.top + height);
 
-						var elementRect = rectangleCoords(pos.left, pos.top, pos.left + width, pos.top + height);
+					if (rectsIntersect(dotRect, elementRect)) {
+						return true;
+					}
+				}
+			}
 
-						var node = $node[0];
+			return false;
+		}
+		function callOnIntersect(selectRect) {
+			var scrollTop = container.scrollTop(),
+				scrollBottom = scrollTop + window.innerHeight;
 
-						if (rectsIntersect(selectRect, elementRect)) {
-							nodeSelected[node.id] = true;
-							options.enterArea(node);
-						}
-						else if (nodeSelected[node.id]) {
-							nodeSelected[node.id] = false;
-							options.exitArea(node);
-						}
+			selectableElems.forEach(function(node) {
+				var $node = $(node);
+				var pos = $node.offset();
+
+				pos.top += scrollTop;
+
+				var nodeInView = pos.top <= scrollBottom;
+				var nodeInSelect = selectRect.y1 <= pos.top && pos.top <= selectRect.y2;
+
+				if (nodeInView || nodeInSelect) {
+					var width = $node.outerWidth();
+					var height = $node.outerHeight();
+
+					var elementRect = rectangleCoords(pos.left, pos.top, pos.left + width, pos.top + height);
+
+					if (rectsIntersect(selectRect, elementRect)) {
+						nodeSelected[node.id] = true;
+						options.enterArea(node);
+					}
+					else if (nodeSelected[node.id]) {
+						nodeSelected[node.id] = false;
+						options.exitArea(node);
 					}
 				}
 			});

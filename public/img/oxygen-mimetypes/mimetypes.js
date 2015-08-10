@@ -242,6 +242,8 @@ module.exports = {
 	'uri/rtspt': 'oxygen-mimetypes/uri-rtspt.png',
 	'uri/rtspu': 'oxygen-mimetypes/uri-rtspu.png',
 	'video/x/generic': 'oxygen-mimetypes/video-x-generic.png',
+	'video/webm': 'oxygen-mimetypes/video-x-generic.png',
+	'video/mpeg': 'oxygen-mimetypes/video-x-generic.png',
 	'video/x/mng': 'oxygen-mimetypes/video-x-mng.png',
 	'x/kde/nsplugin/generated': 'oxygen-mimetypes/x-kde-nsplugin-generated.png',
 	'x/media/podcast': 'oxygen-mimetypes/x-media-podcast.png',

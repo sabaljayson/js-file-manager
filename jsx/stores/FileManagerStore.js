@@ -1,5 +1,5 @@
 var assign = require('object-assign');
-var path = require('path');
+var Path = require('path');
 var EventEmitter = require('events').EventEmitter;
 var mimeIcon = require('../utils/MimeIcon');
 var mod = require('../utils/Modulo');
@@ -38,6 +38,12 @@ function setPath(path) {
     });
     _storeData.files.forEach(setFileIcon);
     _storeData.path = path;
+
+
+    var dirUrl = API.directoryUrl(path);    
+    var state = dirUrl.substr(CONSTS.BASE_PATH.length);
+    window.history.pushState('Object', 'Title', state);
+
     
     FileManagerStore.emitChange();
   });
@@ -317,8 +323,11 @@ FileManagerStore.dispatchToken = AppDispatcher.register(function(action) {
 
     case FileManagerConstants.SET_FILE_SELECTION:
       var file = FileManagerStore.getFile(action.id);
-      file.selected = action.selected;
-      FileManagerStore.emitFileChange(file.id);
+
+      if (file.selected !== action.selected) {
+        file.selected = action.selected;
+        FileManagerStore.emitFileChange(file.id);
+      }
       break;
 
     case FileManagerConstants.MOVE_SELECTION:

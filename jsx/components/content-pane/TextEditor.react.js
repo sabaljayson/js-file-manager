@@ -38,9 +38,6 @@ class TextEditor extends React.Component {
 	    	</div>
 	    	<div style={{display: 'table-row', height: 50}}>
 					<div style={{background: 'white'}}>
-						<span className='label label-default'>
-							{file.path}
-						</span>
 						<div className='pull-right'>
 							<ButtonToolbar>
 								<Button bsStyle='primary' onClick={this._resetDefault.bind(this)}>Reset default</Button>

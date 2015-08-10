@@ -31,6 +31,7 @@ class GridFile extends React.Component {
       <div
         className={'grid-file-element ' + selectedClass}
         id={file.id}
+        onMouseDown={this._onMouseDown.bind(this)}
         onDoubleClick={this._onDoubleClick.bind(this)}
         onContextMenu={this._onContextMenu.bind(this)}>
         <div className='thumbnail' style={{overflow: 'hidden'}}>
@@ -42,6 +43,11 @@ class GridFile extends React.Component {
         </div>
   		</div>
   	)
+  }
+
+  _onMouseDown() {
+    FileManagerActions.unselectAllFiles();
+    FileManagerActions.setFileSelection(this.state.id, true);
   }
 
   _onDoubleClick() {

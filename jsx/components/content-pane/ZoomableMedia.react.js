@@ -39,16 +39,14 @@ class ZoomableMedia extends React.Component {
     }
     else if (file.is_video) {
       viewerComponent = (
-        <video controls autoPlay style={viewerStyle}>
-          <source src={url} type={file.mime} />
+        <video controls autoPlay style={viewerStyle} src={url} type={file.mime}>
           Your browser does not support the video tag.
         </video>
       )
     }
     else if (file.is_audio) {
       viewerComponent = (
-        <audio controls autoPlay>
-          <source src={url} type={file.mime} />
+        <audio controls autoPlay src={url} type={file.mime}>
           Your browser does not support the audio tag.
         </audio>
       )

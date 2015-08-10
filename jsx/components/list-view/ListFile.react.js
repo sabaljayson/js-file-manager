@@ -41,6 +41,7 @@ class ListFile extends React.Component {
       <tr
         className={'list-file-element ' + selectedClass}
         id={file.id}
+        onMouseDown={this._onMouseDown.bind(this)}
         onDoubleClick={this._onDoubleClick.bind(this)}
         onContextMenu={this._onContextMenu.bind(this)} >
 
@@ -57,6 +58,11 @@ class ListFile extends React.Component {
   		</tr>
   	)
   }
+  
+  _onMouseDown() {
+    FileManagerActions.unselectAllFiles();
+    FileManagerActions.setFileSelection(this.state.id, true);
+  }  
 
   _onDoubleClick() {
     if (this.state.is_dir) {

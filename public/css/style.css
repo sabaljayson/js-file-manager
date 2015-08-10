@@ -39,19 +39,19 @@ body {
 
 .grid-file-element {
 	width: 100px !important;
-	height: 140px !important;
+	height: 130px !important;
 
 	float: left;
 	margin: 10px;
 	overflow: hidden;
 }
 
-.list-file-element {
-	
+.grid-file-element .thumbnail {
+	height: 100%;
 }
 
-.list-file-element:hover {
-	background-color: rgba(0, 150, 136, 0.17);
+.list-file-element {
+	
 }
 
 .list-file-element.selected {
