@@ -9,6 +9,7 @@ requireBraceModes();
 require('brace/theme/monokai');
 
 var API = require('../../utils/API');
+var notifyThat = require('../../utils/notifyThat');
 
 class TextEditor extends React.Component {
   constructor(props) {
@@ -55,9 +56,11 @@ class TextEditor extends React.Component {
   }
 
   _saveChanges() {
+  	var file = this.props.file;
+
   	if (confirm('Are you sure?')) {
-  		API.setCommand(this.props.file.path, this.currentValue);
-  	}
+  		API.setCommand(file.path, this.currentValue);
+    }
   }
 
   _onTextChange(newVal) {

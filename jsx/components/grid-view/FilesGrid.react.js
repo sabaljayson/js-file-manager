@@ -11,7 +11,7 @@ var GridFile = require('./GridFile.react');
 function getState() {
   return {
     files: FileManagerStore.getFiles()
-  };
+  };  
 }
 
 class FilesGrid extends React.Component {

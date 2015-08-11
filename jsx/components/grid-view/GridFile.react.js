@@ -34,13 +34,8 @@ class GridFile extends React.Component {
         onMouseDown={this._onMouseDown.bind(this)}
         onDoubleClick={this._onDoubleClick.bind(this)}
         onContextMenu={this._onContextMenu.bind(this)}>
-        <div className='thumbnail' style={{overflow: 'hidden'}}>
-  			  <img src={file.thumbSrc} />
-  			  <hr style={{'margin': '5px'}} />
-          <span>
-            {file.filename}
-          </span>
-        </div>
+        <img src={file.thumbSrc} />
+        <p>{file.filename}</p>
   		</div>
   	)
   }

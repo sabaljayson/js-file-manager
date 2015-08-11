@@ -13,6 +13,12 @@ class ZoomableMedia extends React.Component {
     this.state = defaultState;
   }
 
+  componentDidMount() {
+    // set height to react-dragabble node
+    var viewerComponent = React.findDOMNode(this.refs.viewerComponent);
+    $(viewerComponent).parent().css('height', '100%');
+  }
+
   componentWillReceiveProps() {
     this.setState(defaultState);
   }
@@ -23,7 +29,7 @@ class ZoomableMedia extends React.Component {
     var zoomLevel = this.state.zoomLevel;
     var viewerStyle = {
       maxWidth: '100%',
-      maxHeight: '80%'
+      maxHeight: '100%'
     };
 
     var viewerComponent = false;
@@ -31,6 +37,7 @@ class ZoomableMedia extends React.Component {
     if (file.is_image) {
       viewerComponent = (
         <img
+          ref='viewerComponent'
           draggable='false'
           onWheel={this._onWheel.bind(this)}
           src={url}
@@ -39,14 +46,14 @@ class ZoomableMedia extends React.Component {
     }
     else if (file.is_video) {
       viewerComponent = (
-        <video controls autoPlay style={viewerStyle} src={url} type={file.mime}>
+        <video ref='viewerComponent' controls autoPlay style={viewerStyle} src={url} type={file.mime}>
           Your browser does not support the video tag.
         </video>
       )
     }
     else if (file.is_audio) {
       viewerComponent = (
-        <audio controls autoPlay src={url} type={file.mime}>
+        <audio ref='viewerComponent' controls autoPlay src={url} type={file.mime}>
           Your browser does not support the audio tag.
         </audio>
       )

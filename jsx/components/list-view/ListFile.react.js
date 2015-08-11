@@ -42,8 +42,10 @@ class ListFile extends React.Component {
         className={'list-file-element ' + selectedClass}
         id={file.id}
         onMouseDown={this._onMouseDown.bind(this)}
+        onClick={this._onClick.bind(this)}
         onDoubleClick={this._onDoubleClick.bind(this)}
-        onContextMenu={this._onContextMenu.bind(this)} >
+        onContextMenu={this._onContextMenu.bind(this)}
+        style={{cursor: file.is_dir ? 'pointer' : 'default'}} >
 
         <td>
           {icon}
@@ -64,11 +66,14 @@ class ListFile extends React.Component {
     FileManagerActions.setFileSelection(this.state.id, true);
   }  
 
-  _onDoubleClick() {
+  _onClick() {
     if (this.state.is_dir) {
       FileManagerActions.changePath(this.state.path);
-    }
-    else {
+    }    
+  }
+
+  _onDoubleClick() {
+    if (! this.state.is_dir) {
       FileManagerActions.openFile(this.state.id);
     }
   }
