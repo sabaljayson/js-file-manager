@@ -1,5 +1,6 @@
 var React = require('react');
 var classNames = require('classnames');
+
 var FileManagerActions = require('../../actions/FileManagerActions');
 var CMActions = require('../../actions/ContextMenuActions');
 var CMConstants = require('../../constants/ContextMenuConstants');

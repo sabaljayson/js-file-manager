@@ -57,11 +57,11 @@ class FileManager extends React.Component {
 
 		return (
 			<DocumentTitle title={title}>
-				<div>					
+				<div>
 					<ContextMenu />
 					<FileOperationModal />
 					<NavBar path={this.state.path} viewType={viewType} />
-		      <div className='row' style={{padding: '0px 10px'}}>
+		      <div className='row'>
 		        <div className={split1} style={{borderRight: '1px solid #eee', zIndex: 10, paddingRight: 0}}>
 		          {filesViewComponent}
 		        </div>

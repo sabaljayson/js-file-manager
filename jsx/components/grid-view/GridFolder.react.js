@@ -1,9 +1,11 @@
 var React = require('react');
 var classNames = require('classnames');
+
 var FileManagerActions = require('../../actions/FileManagerActions');
 var ContextMenuActions = require('../../actions/ContextMenuActions');
 var FileManagerStore = require('../../stores/FileManagerStore');
 var makeDragImage = require('../../utils/makeDragImage');
+var fileViewable = require('../../utils/FileViewable');
 var API = require('../../utils/API');
 
 class GridFolder extends React.Component {
@@ -23,7 +25,7 @@ class GridFolder extends React.Component {
   render() {
     var file = this.state;
 
-    if (file.filename.startsWith('.')) {
+    if (! fileViewable(file)) {
       return false;
     }
 
