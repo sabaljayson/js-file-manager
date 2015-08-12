@@ -4,6 +4,7 @@ var FileManagerActions = require('../../actions/FileManagerActions');
 var CMActions = require('../../actions/ContextMenuActions');
 var CMConstants = require('../../constants/ContextMenuConstants');
 var FileManagerStore = require('../../stores/FileManagerStore');
+var makeDragImage = require('../../utils/makeDragImage');
 var fileViewable = require('../../utils/FileViewable');
 var API = require('../../utils/API');
 
@@ -50,6 +51,9 @@ class GridFile extends React.Component {
   _onDragStart(e) {
     e.dataTransfer.dropEffect = 'move';
     e.dataTransfer.setData('text/plain', API.fileUrl(this.state.path));
+
+    var dragImage = makeDragImage(FileManagerStore.getSelectedFiles());
+    e.dataTransfer.setDragImage(dragImage, 0, 0);    
   };
 
   _onMouseDown() {

@@ -3,6 +3,7 @@ var classNames = require('classnames');
 var FileManagerActions = require('../../actions/FileManagerActions');
 var ContextMenuActions = require('../../actions/ContextMenuActions');
 var FileManagerStore = require('../../stores/FileManagerStore');
+var makeDragImage = require('../../utils/makeDragImage');
 var API = require('../../utils/API');
 
 class GridFolder extends React.Component {
@@ -73,6 +74,9 @@ class GridFolder extends React.Component {
   _onDragStart(e) {
     e.dataTransfer.dropEffect = 'move';
     e.dataTransfer.setData('text/plain', API.directoryUrl(this.state.path));
+
+    var dragImage = makeDragImage(FileManagerStore.getSelectedFiles());
+    e.dataTransfer.setDragImage(dragImage, 0, 0);
   };
 
   _onDragOver(e) {

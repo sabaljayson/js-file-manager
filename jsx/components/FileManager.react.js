@@ -57,7 +57,7 @@ class FileManager extends React.Component {
 
 		return (
 			<DocumentTitle title={title}>
-				<div>
+				<div>					
 					<ContextMenu />
 					<FileOperationModal />
 					<NavBar path={this.state.path} viewType={viewType} />
