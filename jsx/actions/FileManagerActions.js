@@ -1,3 +1,4 @@
+var Path = require('path');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var FileManagerConstants = require('../constants/FileManagerConstants');
 var FileManagerStore = require('../stores/FileManagerStore');
@@ -53,6 +54,11 @@ var FileManagerActions = {
       fromPath: fromPath,
       toPath: toPath
     });
+  },
+
+  moveFileToDir: function(file, dirPath) {
+    var newPath = Path.join(dirPath, file.filename);
+    FileManagerActions.moveFile(file.path, newPath);
   },
 
   copyFile: function(fromPath, toPath) {

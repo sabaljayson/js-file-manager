@@ -20,8 +20,8 @@ var _storeData = {
   filesMap: {},
   fileChangeListeners: {},
   sort: {
-    method: 'name',
-    order: 1
+    method: 'mtime',
+    order: -1
   },
   settings: {
     contentPaneOpen: true,
@@ -39,6 +39,7 @@ function setPath(path) {
     _storeData.files.forEach(setFileIcon);
     _storeData.path = path;
 
+    sortFilesBy(_storeData.sort.method, _storeData.sort.order);
 
     var dirUrl = API.directoryUrl(path);    
     var state = dirUrl.substr(CONSTS.BASE_PATH.length);
@@ -189,7 +190,7 @@ function updateFilesThumbnails() {
 
   for (var id in files) {
     var file = files[id];
-    if (file.mime.indexOf('image') > -1) {
+    if (file.is_image) {
       var $file = $('#' + file.id);
       if (! $file.length)
         break;
@@ -210,7 +211,7 @@ function setFileIcon(file) {
 }
 
 function createDirectory(name) {
-  var dirPath = path.join(_storeData.path, name);
+  var dirPath = Path.join(_storeData.path, name);
 
   API.mkdirCommand(dirPath);  
 }

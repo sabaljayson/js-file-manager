@@ -33,25 +33,35 @@ body {
 	cursor: pointer !important;
 }
 
+.grid-folder-element.drag-over {
+	transform: scale(1.15, 1.15);
+}
+
 .grid-folder-element.selected {
 	border: 1px solid #009688 !important;
 }
 
 .grid-file-element {
 	width: 70px !important;
-	height: 100px !important;
-	margin: 5px;
+	height: 85px !important;
+	margin: 6px;
 
 	float: left;
 	overflow: hidden;
 }
 
 .grid-file-element p {
-	text-overflow: ellipsis;
+  font-size: 12px;
+  display: inline-block;
+  word-break: break-all;
 }
 
 .list-file-element {
 	
+}
+
+.list-file-element.drag-over {
+	color: #009688;
 }
 
 .list-file-element.selected {
@@ -108,4 +118,8 @@ body {
 
 .dragged-element {
 	-webkit-transform: translateY(6px) rotateZ(5deg);
+}
+
+.directories-breadcrumb a.drag-over {
+	background-color: rgb(0, 210, 190);
 }

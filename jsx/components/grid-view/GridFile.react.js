@@ -1,22 +1,24 @@
 var React = require('react');
+var classNames = require('classnames');
 var FileManagerActions = require('../../actions/FileManagerActions');
 var CMActions = require('../../actions/ContextMenuActions');
 var CMConstants = require('../../constants/ContextMenuConstants');
-var FMStore = require('../../stores/FileManagerStore');
+var FileManagerStore = require('../../stores/FileManagerStore');
 var fileViewable = require('../../utils/FileViewable');
+var API = require('../../utils/API');
 
 class GridFile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = FMStore.getFile(props.id);    
+    this.state = FileManagerStore.getFile(props.id);    
   }
 
   componentDidMount() {
-    FMStore.addFileChangeListener(this.props.id, this._onChange.bind(this));
+    FileManagerStore.addFileChangeListener(this.props.id, this._onChange.bind(this));
   }
 
   componentWillUnmount() {
-    FMStore.removeFileChangeListener(this.props.id);
+    FileManagerStore.removeFileChangeListener(this.props.id);
   }
 
   render() {
@@ -27,22 +29,35 @@ class GridFile extends React.Component {
       return false;
     }
 
+    var classes = classNames('grid-file-element', {
+      'selected': file.selected
+    });
+
     return (
       <div
-        className={'grid-file-element ' + selectedClass}
+        draggable='true'
+        className={classes}
         id={file.id}
+        onDragStart={this._onDragStart.bind(this)}
         onMouseDown={this._onMouseDown.bind(this)}
-        onDoubleClick={this._onDoubleClick.bind(this)}
-        onContextMenu={this._onContextMenu.bind(this)}>
-        <img src={file.thumbSrc} />
+        onDoubleClick={this._onDoubleClick.bind(this)}         
+        onContextMenu={this._onContextMenu.bind(this)} >
+        <img draggable='false' src={file.thumbSrc} />
         <p>{file.filename}</p>
   		</div>
   	)
   }
 
+  _onDragStart(e) {
+    e.dataTransfer.dropEffect = 'move';
+    e.dataTransfer.setData('text/plain', API.fileUrl(this.state.path));
+  };
+
   _onMouseDown() {
-    FileManagerActions.unselectAllFiles();
-    FileManagerActions.setFileSelection(this.state.id, true);
+    if (! this.state.selected) {
+      FileManagerActions.unselectAllFiles();
+      FileManagerActions.setFileSelection(this.state.id, true);
+    }
   }
 
   _onDoubleClick() {
@@ -59,7 +74,7 @@ class GridFile extends React.Component {
   }
 
   _onChange() {
-    this.setState(FMStore.getFile(this.props.id));
+    this.setState(FileManagerStore.getFile(this.props.id));
   }
 }
 

@@ -39,15 +39,15 @@
 			if (e.which !== 1) // 1 == left button
 				return;
 
+			selectableElems = container.find(options.selectors.join()).toArray(); 
+
 			if (dotIsInAnyElement(e.pageX, e.pageY)) {
 				return;
 			}
 
 			rectNode = createRectNode(styles);
 			initX = e.pageX;
-			initY = e.pageY + container.scrollTop();
-
-			selectableElems = container.find(options.selectors.join()).toArray(); 
+			initY = e.pageY + container.scrollTop();			
 
 			// all nodes are out of area at start
 			selectableElems.forEach(options.exitArea);
