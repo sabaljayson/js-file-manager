@@ -21,7 +21,6 @@ class GridFolder extends React.Component {
 
   render() {
     var file = this.state;
-    var selectedClass = file.selected ? 'selected' : '';
 
     if (file.filename.startsWith('.')) {
       return false;
@@ -89,7 +88,7 @@ class GridFolder extends React.Component {
     this.setState({dragOver: false});
 
     FileManagerStore.getSelectedFiles()
-      .forEach(function(f)  {return FileManagerActions.moveFileToDir(f, this.state.path);}.bind(this));
+      .forEach(f => FileManagerActions.moveFileToDir(f, this.state.path));
 
     e.preventDefault();
   };

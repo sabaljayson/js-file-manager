@@ -71,7 +71,7 @@ class DirectoriesBreadcrumb extends React.Component {
     this._setDragOver(dirIndex, false);
 
     FileManagerStore.getSelectedFiles()
-      .forEach(function(f)  {return FileManagerActions.moveFileToDir(f, toPath);});
+      .forEach(f => FileManagerActions.moveFileToDir(f, toPath));
 
     e.preventDefault();
   }

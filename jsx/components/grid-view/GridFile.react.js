@@ -23,7 +23,6 @@ class GridFile extends React.Component {
 
   render() {
   	var file = this.state;
-    var selectedClass = file.selected ? 'selected' : '';
 
     if (! fileViewable(file)) {
       return false;
