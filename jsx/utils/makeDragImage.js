@@ -8,7 +8,6 @@ module.exports = function(files) {
 			display: 'block',
 			top: '0',
 			left: '0',
-			width: '0',
 			height: '0'
 		}).attr({
 			id: uniqueNodeId
