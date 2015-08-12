@@ -1,5 +1,6 @@
 var React = require('react');
-var path = require('path');
+var Path = require('path');
+var classNames = require('classnames');
 var DocumentTitle = require('react-document-title');
 
 var FileManagerStore = require('../stores/FileManagerStore');
@@ -36,7 +37,7 @@ class FileManager extends React.Component {
 	render() {
 		var viewType = this.state.viewType;
 		var contentPane = this.state.contentPane;
-		var title = this.state.path.split(path.sep).last();
+		var title = this.state.path.split(Path.sep).last();
 		var viewZoom = this.state.viewZoom;
 
 		var filesViewComponent = false;
@@ -50,10 +51,15 @@ class FileManager extends React.Component {
 			throw 'Unknown files view type ' + viewType;
 		}
 
-		var split1 = 'col-xs-12', split2 = 'col-xs-0';
-		if (this.state.settings.contentPaneOpen) {
-			split1 = split2 = 'col-xs-6';
-		}
+		var split1 = classNames({
+			'col-xs-6': this.state.settings.contentPaneOpen,
+			'col-xs-12': ! this.state.settings.contentPaneOpen
+		});
+
+		var split2 = classNames({
+			'col-xs-6': this.state.settings.contentPaneOpen,
+			'col-xs-0': ! this.state.settings.contentPaneOpen
+		});		
 
 		return (
 			<DocumentTitle title={title}>
