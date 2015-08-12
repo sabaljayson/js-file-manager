@@ -11,7 +11,9 @@ var API = require('../../utils/API');
 class GridFolder extends React.Component {
   constructor(props) {
     super(props);
-    this.state = FileManagerStore.getFile(props.id) 
+    this.state = FileManagerStore.getFile(props.id);
+
+    this.dragEnterCounter = 0;
   }
 
   componentDidMount() {
@@ -42,8 +44,7 @@ class GridFolder extends React.Component {
         title={file.filename}
         id={this.props.id}
         onDragStart={this._onDragStart.bind(this)}
-        onDragEnter={e => e.preventDefault()}
-        onDragOver={this._onDragOver.bind(this)}
+        onDragEnter={this._onDragEnter.bind(this)}
         onDragLeave={this._onDragLeave.bind(this)}
         onDrop={this._onDrop.bind(this)}
         onMouseDown={this._onMouseDown.bind(this)}
@@ -81,13 +82,20 @@ class GridFolder extends React.Component {
     e.dataTransfer.setDragImage(dragImage, 0, 0);
   };
 
-  _onDragOver(e) {
+  _onDragEnter(e) {
     e.preventDefault();
-    this.setState({dragOver: true});
+
+    if (this.dragEnterCounter++ === 0) {
+      this.setState({dragOver: true});
+    }
   };
 
   _onDragLeave(e) {
-    this.setState({dragOver: false});
+    e.preventDefault();
+
+    if (--this.dragEnterCounter === 0) {
+      this.setState({dragOver: false});
+    }
   };
 
   _onDrop(e) {
