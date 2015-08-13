@@ -20,8 +20,7 @@ var routes = {
 };
 
 
-open('http://localhost:3000');
-console.log('Opening http://localhost:3000...');
+console.log('Open on http://localhost:3000');
 
 var app = express();
 
@@ -36,13 +35,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
-app.use('/get', express.static('/'));
+
 
 app.use('/', routes.index);
 app.use(/\/path=.+/, routes.index);
 app.use('/ls', routes.lsCommand);
 app.use('/rm', routes.rmCommand);
 app.use('/mv', routes.mvCommand);
+app.use('/get', express.static('/'));
 app.use('/set', routes.setCommand);
 app.use('/mkdir', routes.mkdirCommand);
 app.use('/open', routes.openCommand);

@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "start-dev": "watchify -o public/js/bundle.js -v -d jsx/main.js",
     "postinstall": "node_modules/.bin/bower install"
   },
   "dependencies": {
@@ -54,7 +53,12 @@
     "jest-cli": "^0.4.3",
     "reactify": "^0.15.2",
     "uglify-js": "~2.4.15",
-    "watchify": "^2.1.1"
+    "watchify": "^2.1.1",
+    "vinyl-source-stream": "~1.1.0",
+    "gulp": "~3.9.0",
+    "gulp-rename": "~1.2.2",
+    "gulp-uglify": "~1.2.0",
+    "vinyl-buffer": "~1.0.0"
   },
   "browserify": {
     "transform": [
