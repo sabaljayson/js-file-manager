@@ -9,7 +9,7 @@ var fileViewable = require('../../utils/FileViewable');
 var DragImage = require('../../utils/DragImage');
 var API = require('../../utils/API');
 
-var listDragImage = require('./listDragImage');
+var listDragImageView = require('./listDragImageView');
 
 class ListFile extends React.Component {
   constructor(props) {
@@ -40,6 +40,12 @@ class ListFile extends React.Component {
       'list-folder-element': file.is_dir
     });
 
+    var filename = file.filename.slice();
+
+    if (file.is_dir && file.dragOver) {
+      filename = 'Move into ' + filename;
+    }
+
     return (
       <tr
         draggable='true'
@@ -62,7 +68,7 @@ class ListFile extends React.Component {
             ? <i className='mdi-file-folder mdi-material-grey' />
             : <img src={file.thumbSrc} style={{width: 25, marginRight: 5}} />
           }
-          {file.filename}
+          {filename}
         </td>
         <td>
           {file.is_dir ? '<directory>' : fileSize(file.size)}
@@ -80,7 +86,7 @@ class ListFile extends React.Component {
     e.dataTransfer.dropEffect = 'move';
     e.dataTransfer.setData('text/plain', urlTo(this.state.path));
 
-    var dragImage = listDragImage(FileManagerStore.getSelectedFiles());
+    var dragImage = listDragImageView(FileManagerStore.getSelectedFiles());
     var dragImageNode = DragImage.set(dragImage);
     e.dataTransfer.setDragImage(dragImageNode, 0, 0);
   };

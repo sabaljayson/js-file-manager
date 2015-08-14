@@ -9,7 +9,7 @@ var fileViewable = require('../../utils/FileViewable');
 var DragImage = require('../../utils/DragImage');
 var API = require('../../utils/API');
 
-var gridDragImage = require('./gridDragImage');
+var gridDragImageView = require('./gridDragImageView');
 
 class GridFile extends React.Component {
   constructor(props) {
@@ -56,7 +56,7 @@ class GridFile extends React.Component {
     e.dataTransfer.dropEffect = 'move';
     e.dataTransfer.setData('text/plain', API.fileUrl(this.state.path));
 
-    var dragImage = gridDragImage(FileManagerStore.getSelectedFiles());
+    var dragImage = gridDragImageView(FileManagerStore.getSelectedFiles());
     var dragImageNode = DragImage.set(dragImage);
     e.dataTransfer.setDragImage(dragImageNode, 0, 0);
   }
