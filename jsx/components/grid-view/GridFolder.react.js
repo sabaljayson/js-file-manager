@@ -4,9 +4,11 @@ var classNames = require('classnames');
 var FileManagerActions = require('../../actions/FileManagerActions');
 var ContextMenuActions = require('../../actions/ContextMenuActions');
 var FileManagerStore = require('../../stores/FileManagerStore');
-var makeDragImage = require('../../utils/makeDragImage');
 var fileViewable = require('../../utils/FileViewable');
+var DragImage = require('../../utils/DragImage');
 var API = require('../../utils/API');
+
+var gridDragImage = require('./gridDragImage');
 
 class GridFolder extends React.Component {
   constructor(props) {
@@ -44,9 +46,11 @@ class GridFolder extends React.Component {
         title={file.filename}
         id={this.props.id}
         onDragStart={this._onDragStart.bind(this)}
+        onDragEnd={this._onDragEnd.bind(this)}
         onDragEnter={this._onDragEnter.bind(this)}
         onDragLeave={this._onDragLeave.bind(this)}
         onDrop={this._onDrop.bind(this)}
+        onDragOver={e => e.preventDefault()}
         onMouseDown={this._onMouseDown.bind(this)}
         onClick={this._onClick.bind(this)}
         onContextMenu={this._onContextMenu.bind(this)}
@@ -78,9 +82,14 @@ class GridFolder extends React.Component {
     e.dataTransfer.dropEffect = 'move';
     e.dataTransfer.setData('text/plain', API.directoryUrl(this.state.path));
 
-    var dragImage = makeDragImage(FileManagerStore.getSelectedFiles());
-    e.dataTransfer.setDragImage(dragImage, 0, 0);
+    var dragImage = gridDragImage(FileManagerStore.getSelectedFiles());
+    var dragImageNode = DragImage.set(dragImage);
+    e.dataTransfer.setDragImage(dragImageNode, 0, 0);
   };
+
+  _onDragEnd() {
+    DragImage.clear();
+  }  
 
   _onDragEnter(e) {
     e.preventDefault();
@@ -88,7 +97,7 @@ class GridFolder extends React.Component {
     if (this.dragEnterCounter++ === 0) {
       this.setState({dragOver: true});
     }
-  };
+  }
 
   _onDragLeave(e) {
     e.preventDefault();
@@ -96,16 +105,18 @@ class GridFolder extends React.Component {
     if (--this.dragEnterCounter === 0) {
       this.setState({dragOver: false});
     }
-  };
+  }
 
   _onDrop(e) {
+    this.dragEnterCounter = 0;
     this.setState({dragOver: false});
 
-    FileManagerStore.getSelectedFiles()
+    FileManagerStore
+      .getSelectedFiles()
       .forEach(f => FileManagerActions.moveFileToDir(f, this.state.path));
 
     e.preventDefault();
-  };
+  }
 
   _onContextMenu(e) {    
     if (! this.state.selected) {

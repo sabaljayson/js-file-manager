@@ -5,9 +5,11 @@ var FileManagerActions = require('../../actions/FileManagerActions');
 var CMActions = require('../../actions/ContextMenuActions');
 var CMConstants = require('../../constants/ContextMenuConstants');
 var FileManagerStore = require('../../stores/FileManagerStore');
-var makeDragImage = require('../../utils/makeDragImage');
 var fileViewable = require('../../utils/FileViewable');
+var DragImage = require('../../utils/DragImage');
 var API = require('../../utils/API');
+
+var gridDragImage = require('./gridDragImage');
 
 class GridFile extends React.Component {
   constructor(props) {
@@ -40,8 +42,9 @@ class GridFile extends React.Component {
         className={classes}
         id={file.id}
         onDragStart={this._onDragStart.bind(this)}
+        onDragEnd={this._onDragEnd.bind(this)}
         onMouseDown={this._onMouseDown.bind(this)}
-        onDoubleClick={this._onDoubleClick.bind(this)}         
+        onDoubleClick={this._onDoubleClick.bind(this)}
         onContextMenu={this._onContextMenu.bind(this)} >
         <img draggable='false' src={file.thumbSrc} />
         <p>{file.filename}</p>
@@ -53,9 +56,14 @@ class GridFile extends React.Component {
     e.dataTransfer.dropEffect = 'move';
     e.dataTransfer.setData('text/plain', API.fileUrl(this.state.path));
 
-    var dragImage = makeDragImage(FileManagerStore.getSelectedFiles());
-    e.dataTransfer.setDragImage(dragImage, 0, 0);    
-  };
+    var dragImage = gridDragImage(FileManagerStore.getSelectedFiles());
+    var dragImageNode = DragImage.set(dragImage);
+    e.dataTransfer.setDragImage(dragImageNode, 0, 0);
+  }
+
+  _onDragEnd() {
+    DragImage.clear();
+  }
 
   _onMouseDown() {
     if (! this.state.selected) {

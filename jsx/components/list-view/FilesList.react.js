@@ -69,8 +69,8 @@ class FilesList extends React.Component {
         className='files-list-element'
         onClick={this._onClick}
         onContextMenu={this._onContextMenu} >
-        
-        <table className='table'>
+
+        <table className='table table-condensed'>
           <thead>
             <tr>
               <th>Name</th>

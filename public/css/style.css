@@ -60,10 +60,6 @@ body {
 	
 }
 
-.list-file-element.drag-over {
-	color: #009688;
-}
-
 .list-file-element.selected {
 	color: #009688;
 }
@@ -97,6 +93,14 @@ body {
 	position: relative;
   top: 3px;
   margin-right: 5px;
+}
+
+.list-folder-element {
+	cursor: pointer;
+}
+
+.list-folder-element.drag-over {
+	color: #009688;
 }
 
 .dropdown-menu {

@@ -71,10 +71,10 @@
 			onMouseUp(e);
 		}
 		function dotIsInAnyElement(x, y) {
-			var dotRect = rectangleCoords(x, y, x + 1, y + 1);
-
 			var scrollTop = container.scrollTop(),
 				scrollBottom = scrollTop + window.innerHeight;
+
+			var dotRect = rectangleCoords(x, y + scrollTop, x + 1, y + scrollTop + 1);
 
 			for (var i = 0; i < selectableElems.length; ++i) {
 				var $node = $(selectableElems[i]);
