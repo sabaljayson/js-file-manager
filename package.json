@@ -58,7 +58,8 @@
     "gulp": "~3.9.0",
     "gulp-rename": "~1.2.2",
     "gulp-uglify": "~1.2.0",
-    "vinyl-buffer": "~1.0.0"
+    "vinyl-buffer": "~1.0.0",
+    "gulp-empty": "~0.1.1"
   },
   "browserify": {
     "transform": [
