@@ -1,31 +1,30 @@
-var express = require('express');
-var path = require('path');
 var fs = require('fs');
-var Thumbnail = require('thumbnail');
+var path = require('path');
+var express = require('express');
+var Thumbnails = require('../utils/Thumbnails');
 
 var router = express.Router();
 
 router.get('/*', function(req, res, next) {
 	var filePath = '/' + req.params[0];
-	var fileDir = path.dirname(filePath);
-	var filename = path.basename(filePath);
-	var thumbnailsDir = path.join(__dirname, '../thumbnails');
 
-	var thumb = new Thumbnail(fileDir, thumbnailsDir);
-	thumb.ensureThumbnail(filename, 70, 70, function(err, thumbFilename) {
+	Thumbnails.getThumb(filePath, function(err, thumbPath) {
 		if (err) {
-			 return;
+			console.log(err);
+			return;
 		}
 
-		var thumbnailPath = path.join(thumbnailsDir, thumbFilename);
-		fs.readFile(thumbnailPath, function(err, data) {
-	  	if (err) throw err;
+		fs.readFile(thumbPath, function(err, data) {
+	  	if (err) {
+	  		console.log(err);
+	  		return;
+	  	}
 
 	    res.writeHead(200);
 	    res.end(data);
 
-	    console.log('thumbnail ' + filePath);
-	  });
+	    console.log('thumbnail', filePath);
+	  });		
 	});
 });
 

@@ -7,12 +7,19 @@ var watchify = require('watchify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 
+var Thumbnails = require('./utils/Thumbnails');
+var removeOldFiles = require('./utils/removeOldFiles');
+
 gulp.task('browserify-debug', function() {
   browserifyShare(true);
 });
 
 gulp.task('browserify', function() {
   browserifyShare();
+});
+
+gulp.task('remove-thumbs', function() {
+  removeOldFiles(Thumbnails.dir, 0, Thumbnails.skipRemoveOfFiles);
 });
 
 function browserifyShare(debug) {
