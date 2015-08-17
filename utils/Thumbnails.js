@@ -8,6 +8,11 @@ var removeOldFiles = require('./removeOldFiles');
 
 var getThumbCallsCounter = 0;
 
+// NW.js doesn't support __dirname 
+if (! global.__dirname) {
+	__dirname = Path.join(process.cwd(), 'utils');
+}
+
 var Thumbnails = {
 	dir: Path.join(__dirname, '../thumbnails'),
 	maxCount: 5000,

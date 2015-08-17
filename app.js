@@ -1,3 +1,5 @@
+var http = require('http');
+var socketIo = require('socket.io');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -5,7 +7,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var open = require('open');
-var exec = require('child_process').exec;
+
+var port = 3000;
 
 var routes = {
   index: require('./routes/index'),
@@ -19,22 +22,21 @@ var routes = {
   setCommand: require('./routes/setCommand')
 };
 
-
-console.log('Open on http://localhost:3000');
+console.log('Open on http://localhost:' + port);
 
 var app = express();
 
-app.set('views', __dirname);
+app.set('port', port);
+app.set('views', '.'); // current directory
 app.set('view engine', 'ejs');
 
-
-app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon('./public/favicon.ico'));
 // app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
+app.use(express.static('./public'));
+app.use('/bower_components', express.static('./bower_components'));
 
 
 app.use('/', routes.index);
@@ -65,5 +67,9 @@ app.use(function(err, req, res, next) {
   });
 });
 
+var server = http.createServer(app);
+server.listen(port);  
 
-module.exports = app;
+/*
+var io = socketIo(server);
+app.set('socketIo', io);*/

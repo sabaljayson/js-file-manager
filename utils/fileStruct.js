@@ -21,8 +21,8 @@ module.exports = function(pathToFile) {
 		mtime: stats.mtime,
 		selected: false,
 		is_dir: isDir,
-		is_image: fileMime.has('image'),
-		is_video: fileMime.has('video'),
-		is_audio: fileMime.has('audio')
+		is_image: fileMime.indexOf('image') !== -1,
+		is_video: fileMime.indexOf('video') !== -1,
+		is_audio: fileMime.indexOf('audio') !== -1
 	};
 };
