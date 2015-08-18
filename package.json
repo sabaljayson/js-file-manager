@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js",
+    "start": "node expressApp.js",
     "postinstall": "node_modules/.bin/bower install"
   },
   "dependencies": {

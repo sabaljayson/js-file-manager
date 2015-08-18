@@ -1,4 +1,4 @@
-var expressApp = require('../app');
+var expressApp = require('./expressApp');
 
 var app = require('app');
 var Menu = require('menu');
@@ -23,7 +23,6 @@ app.on('ready', function() {
       label: 'Quit',
       type: 'normal',
       click: function() {
-        mainWindow.forceClose = true;
         app.quit();
       }
     }
