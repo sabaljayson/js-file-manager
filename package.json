@@ -72,5 +72,5 @@
       "folderify"
     ]
   },
-  "main": "launcher/main.js"
+  "main": "launcher.js"
 }
