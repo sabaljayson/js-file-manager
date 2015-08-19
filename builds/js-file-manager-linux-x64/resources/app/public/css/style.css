@@ -1,0 +1,129 @@
+body {
+	background: white !important;
+	overflow: hidden;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+	padding-top: 65px;
+}
+
+.navbar a {
+	cursor: pointer;
+}
+
+.files-grid-element {
+	overflow: hidden;
+	padding-top: 12px !important;
+}
+
+.grid-folder-element {
+	width: 150px;
+	margin: 10px !important;
+  padding-left: 10px !important;
+  padding-right: 0 !important;
+	overflow: hidden !important;
+  text-overflow: ellipsis;
+  line-height: 24px;
+  font-size: 14px !important;
+	border: 1px solid white !important;
+	cursor: pointer !important;
+}
+
+.grid-folder-element.drag-over {
+	transform: scale(1.15, 1.15);
+}
+
+.grid-folder-element.selected {
+	border: 1px solid #009688 !important;
+}
+
+.grid-file-element {
+	width: 70px !important;
+	height: 85px !important;
+	margin: 6px;
+
+	float: left;
+	overflow: hidden;
+}
+
+.grid-file-element p {
+  font-size: 12px;
+  display: inline-block;
+  word-break: break-all;
+}
+
+.list-file-element {
+	
+}
+
+.list-file-element.selected {
+	color: #009688;
+}
+
+.grid-file-element.selected {
+	border-color: #009688;
+	color: #009688;
+}
+
+.grid-file-element img {
+	height: 70px !important;
+	width: 70px !important;
+	border: 1px solid #eee;
+}
+
+.grid-file-element.selected img {
+	border-color: #009688;
+	color: #009688;
+}
+
+.grid-file-element i {
+	font-size: 100px !important;
+}
+
+.grid-folder-element i {
+  position: relative;
+  top: -3px;
+}
+
+.list-file-element i {
+	position: relative;
+  top: 3px;
+  margin-right: 5px;
+}
+
+.list-folder-element {
+	cursor: pointer;
+}
+
+.list-folder-element.drag-over {
+	color: #009688;
+}
+
+.dropdown-menu {
+	min-width: 0px !important;
+}
+
+.context-menu {
+	position: absolute;
+	z-index: 333;
+}
+
+.dropdown-menu, .context-menu li a {
+	cursor: pointer;
+}
+
+.context-menu hr {
+	margin: 5px;
+}
+
+.dragged-element {
+	-webkit-transform: translateY(6px) rotateZ(5deg);
+}
+
+.directories-breadcrumb a.drag-over {
+	background-color: rgb(0, 210, 190);
+}

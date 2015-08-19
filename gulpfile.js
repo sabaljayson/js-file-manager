@@ -23,7 +23,7 @@ gulp.task('remove-thumbs', function() {
   removeOldFiles(Thumbnails.dir, 0, Thumbnails.skipRemoveOfFiles);
 });
 
-gulp.task('electron-package', function() {
+gulp.task('electron-package', ['remove-thumbs'], function() {
   var opts = {
     dir: __dirname,
     name: 'js-file-manager',
@@ -40,7 +40,7 @@ gulp.task('electron-package', function() {
     }
 
     console.log(appPath);
-  });  
+  });
 })
 
 function browserifyShare(debug) {
