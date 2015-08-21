@@ -37,9 +37,10 @@ class ListFile extends React.Component {
     }
 
     var classes = classNames('list-file-element', {      
+      'list-folder-element': file.is_dir,
       'selected': file.selected,
       'drag-over': file.dragOver,
-      'list-folder-element': file.is_dir
+      'dragged': file.dragged
     });
 
     var filename = file.filename.slice();

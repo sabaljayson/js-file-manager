@@ -37,6 +37,10 @@ body {
 	transform: scale(1.15, 1.15);
 }
 
+.grid-folder-element.dragged {
+	opacity: 0.5;
+}
+
 .grid-folder-element.selected {
 	border: 1px solid #009688 !important;
 }
@@ -62,6 +66,10 @@ body {
 
 .list-file-element.selected {
 	color: #009688;
+}
+
+.grid-file-element.dragged {
+	opacity: 0.5;
 }
 
 .grid-file-element.selected {
@@ -101,6 +109,10 @@ body {
 
 .list-folder-element.drag-over {
 	color: #009688;
+}
+
+.list-file-element.dragged {
+	opacity: 0.5;
 }
 
 .dropdown-menu {

@@ -37,7 +37,8 @@ class GridFolder extends React.Component {
       'grid-folder-element',
       'btn', 'btn-default', 'btn-raised', {
       'selected': file.selected,
-      'drag-over': file.dragOver
+      'drag-over': file.dragOver,
+      'dragged': file.dragged
     });
 
     var draggable = Draggable(this, gridDragImageView);    
