@@ -6,7 +6,7 @@ var ButtonToolbar = require('react-bootstrap').ButtonToolbar;
 var Button = require('react-bootstrap').Button;
 var modelist = ace.require("ace/ext/modelist");
 requireBraceModes();
-require('brace/theme/monokai');
+require('brace/theme/chrome');
 
 var API = require('../../utils/API');
 var notifyThat = require('../../utils/notifyThat');
@@ -32,7 +32,7 @@ class TextEditor extends React.Component {
 					  onChange={this._onTextChange.bind(this)}
 					  fontSize={16}
 					  mode={mode}
-					  theme='monokai'
+					  theme='chrome'
 					  width='100%'
 					  height='100%'
 					  name='SOME_UNIQUE_ID_OF_DIV' />    	

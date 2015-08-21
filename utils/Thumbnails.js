@@ -46,7 +46,7 @@ module.exports = Thumbnails;
 
 function fileHash(path) {
 	var stats = fs.statSync(path);
-	return md5(path + stats.mtime.toString());	
+	return md5(path + stats.mtime.toString());
 }
 
 function thumbName(path) {
