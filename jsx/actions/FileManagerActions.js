@@ -56,9 +56,10 @@ var FileManagerActions = {
     });
   },
 
-  moveFileToDir: function(file, dirPath) {
-    var newPath = Path.join(dirPath, file.filename);
-    FileManagerActions.moveFile(file.path, newPath);
+  moveFileToDir: function(filePath, dirPath) {
+    var baseName = Path.basename(filePath);
+    var newPath = Path.join(dirPath, baseName);
+    FileManagerActions.moveFile(filePath, newPath);
   },
 
   copyFile: function(fromPath, toPath) {

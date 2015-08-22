@@ -61,6 +61,7 @@ class FileManager extends React.Component {
 			'col-xs-0': ! this.state.settings.contentPaneOpen
 		});		
 
+
 		return (
 			<DocumentTitle title={title}>
 				<div>

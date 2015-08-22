@@ -1,13 +1,38 @@
 var Path = require('path');
 
-module.exports = {
+var dirUrlPrefix = '/path=';
+var fileUrlPrefix = '/get';
 
+var API = {
 	directoryUrl: function(path) {
-		return CONSTS.BASE_PATH + Path.join('/path=', path);
+		return CONSTS.BASE_PATH + Path.join(dirUrlPrefix, path);
 	},
 
 	fileUrl: function(path) {
-		return CONSTS.BASE_PATH + Path.join('/get', path);
+		return CONSTS.BASE_PATH + Path.join(fileUrlPrefix, path);
+	},
+
+	isDirectoryUrl: function(url) {
+		if (url.startsWith(CONSTS.BASE_PATH)) {
+			url = url.substr(CONSTS.BASE_PATH.length);
+
+			var isDir = url.startsWith(dirUrlPrefix);
+			var isFile = url.startsWith(fileUrlPrefix);
+			if (isDir !== isFile) {
+				return isDir;				
+			}
+		}
+
+		throw 'Invalid url';
+	},
+
+	urlToPath: function(url) {
+		if (API.isDirectoryUrl(url)) {
+			return url.substr(CONSTS.BASE_PATH.length + dirUrlPrefix.length);
+		}
+		else {
+			return url.substr(CONSTS.BASE_PATH.length + fileUrlPrefix.length);
+		}
 	},
 
 	getCommand: function(path, callback) {
@@ -74,3 +99,5 @@ module.exports = {
 	  });
 	}
 };
+
+module.exports = API;

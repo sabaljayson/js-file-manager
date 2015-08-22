@@ -5,18 +5,22 @@ var DragImage = require('../utils/DragImage');
 var API = require('../utils/API');
 
 module.exports = function(self, dragImageView) {
-  var apiUrl = self.state.is_dir ? API.directoryUrl : API.fileUrl;
-
   var props = {
     onDragStart: function(e) {
       this.setState({
         dragged: true
       });
 
-      e.dataTransfer.dropEffect = 'move';
-      e.dataTransfer.setData('text/plain', apiUrl(this.state.path));
+      var selectedFiles = FileManagerStore.getSelectedFiles();
+      var transferData = selectedFiles.map(f => {
+        var apiUrl = f.is_dir ? API.directoryUrl : API.fileUrl;
+        return apiUrl(f.path);
+      }).join('\n');
 
-      var dragImage = dragImageView(FileManagerStore.getSelectedFiles());
+      e.dataTransfer.dropEffect = 'move';
+      e.dataTransfer.setData('text/plain', transferData);
+
+      var dragImage = dragImageView(selectedFiles);
       var dragImageNode = DragImage.set(dragImage);
       e.dataTransfer.setDragImage(dragImageNode, 0, 0);      
     },

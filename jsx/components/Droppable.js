@@ -5,7 +5,7 @@ var FileManagerStore = require('../stores/FileManagerStore');
 var DragImage = require('../utils/DragImage');
 var API = require('../utils/API');
 
-module.exports = function(self) {
+module.exports = function(self, toPath) {
   var props = {
     onDragEnter: function(e) {
       e.preventDefault();
@@ -48,9 +48,11 @@ module.exports = function(self) {
         dragEnterCounter: 0
       });
 
-      FileManagerStore
-        .getSelectedFiles()
-        .forEach(f => FileManagerActions.moveFileToDir(f, this.state.path));
+      var urls = e.dataTransfer.getData('text/plain').split('\n');
+
+      urls
+        .map(API.urlToPath)
+        .forEach(path => FileManagerActions.moveFileToDir(path, toPath));
 
       e.preventDefault();
     }

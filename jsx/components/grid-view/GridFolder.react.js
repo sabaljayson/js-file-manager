@@ -42,7 +42,7 @@ class GridFolder extends React.Component {
     });
 
     var draggable = Draggable(this, gridDragImageView);    
-    var droppable = Droppable(this);
+    var droppable = Droppable(this, this.state.path);
 
     return draggable(droppable(
       <a
