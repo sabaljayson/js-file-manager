@@ -15,7 +15,7 @@ class FilesViewButton extends React.Component {
   		icon = 'list';
   	}
   	else if (view === 'list') {
-  		icon = 'apps';
+  		icon = 'view_comfy';
   	}
   	else {
   		throw 'Unknown files view type ' + view;

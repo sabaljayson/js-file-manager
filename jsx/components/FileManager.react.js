@@ -36,7 +36,6 @@ class FileManager extends React.Component {
 
 	render() {
 		var viewType = this.state.viewType;
-		var contentPane = this.state.contentPane;
 		var title = this.state.path.split(Path.sep).last();
 		var viewZoom = this.state.viewZoom;
 
