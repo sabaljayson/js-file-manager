@@ -21,8 +21,28 @@ module.exports = function(pathToFile) {
 		mtime: stats.mtime,
 		selected: false,
 		is_dir: isDir,
-		is_image: fileMime.has('image'),
+		is_image: isImage(fileMime, stats.size),
 		is_video: fileMime.has('video'),
 		is_audio: fileMime.has('audio')
 	};
 };
+
+function isImage(mime, size) {
+	var forbidden = [
+		'image/vnd.djvu'
+	];
+
+	if (forbidden.find(mime)) {
+		return false;
+	}
+
+	if (size > megabytes(3.5)) {
+		return false;
+	}
+
+	return mime.has('image');
+}
+
+function megabytes(mbytes) {
+	return mbytes * 1024 * 1024;
+}
