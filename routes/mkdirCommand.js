@@ -4,7 +4,9 @@ var fs = require('fs');
 var mkdirp = require('mkdirp');
 var querystring = require('querystring');
 var mime = require('mime');
- 
+
+var RoutesPaths = require('./RoutesPaths');
+
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
@@ -18,7 +20,7 @@ router.get('/', function(req, res, next) {
 		if (err) return;
 		res.end('done');
 		
-  	console.log('mkdir', address);
+  	console.log(RoutesPaths.mkdirCommand, address);
 	});
 });
 

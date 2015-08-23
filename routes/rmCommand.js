@@ -4,6 +4,8 @@ var express = require('express');
 var querystring = require('querystring');
 var fileStruct = require('../utils/fileStruct');
  
+var RoutesPaths = require('./RoutesPaths');
+
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
@@ -23,7 +25,7 @@ router.get('/', function(req, res, next) {
 	}
 
 	res.end('error');
-	console.log('rm', address);
+	console.log(RoutesPaths.rmCommand, address);
 });
 
 module.exports = router;

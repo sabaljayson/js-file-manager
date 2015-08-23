@@ -4,9 +4,9 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
 	var filesDir = '/home';
-	var found = req.baseUrl.indexOf('/path=');
+	var found = req.baseUrl.indexOf('/$');
 	if (found == 0) {
-		filesDir = req.baseUrl.split('/path=')[1];
+		filesDir = req.baseUrl.split('/$')[1];
 	}
 
 	res.render('index', {
@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 		filesDir: filesDir
 	});
 
-	console.log('render ' + filesDir);
+	console.log('render', filesDir);
 });
 
 module.exports = router;

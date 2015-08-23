@@ -2,8 +2,10 @@ var fs = require('fs-extra');
 var path = require('path');
 var express = require('express');
 var querystring = require('querystring');
+
 var fileStruct = require('../utils/fileStruct');
- 
+var RoutesPaths = require('./RoutesPaths');
+
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
@@ -22,7 +24,7 @@ router.get('/', function(req, res, next) {
 	}
 
 	res.end('done');
-	console.log('cp', from, to);
+	console.log(RoutesPaths.cpCommand, from, to);
 });
 
 module.exports = router;

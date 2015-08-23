@@ -1,7 +1,9 @@
 var fs = require('fs');
 var path = require('path');
 var express = require('express');
+
 var Thumbnails = require('../utils/Thumbnails');
+var RoutesPaths = require('./RoutesPaths');
 
 var router = express.Router();
 
@@ -23,7 +25,7 @@ router.get('/*', function(req, res, next) {
 	    res.writeHead(200);
 	    res.end(data);
 
-	    console.log('thumbnail', filePath);
+	    console.log(RoutesPaths.thumbCommand, filePath);
 	  });		
 	});
 });

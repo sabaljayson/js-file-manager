@@ -1,7 +1,9 @@
 var Path = require('path');
 
-var dirUrlPrefix = '/path=';
-var fileUrlPrefix = '/get';
+var RoutesPaths = require('../../routes/RoutesPaths');
+
+var dirUrlPrefix = RoutesPaths.index;
+var fileUrlPrefix = RoutesPaths.getCommand;
 
 var API = {
 	directoryUrl: function(path) {
@@ -19,7 +21,7 @@ var API = {
 			var isDir = url.startsWith(dirUrlPrefix);
 			var isFile = url.startsWith(fileUrlPrefix);
 			if (isDir !== isFile) {
-				return isDir;				
+				return isDir;
 			}
 		}
 
@@ -37,7 +39,7 @@ var API = {
 
 	getCommand: function(path, callback) {
 	  $.ajax({
-	    url:  Path.join('/get', path),
+	    url:  Path.join(RoutesPaths.getCommand, path),
 	    dataType: 'text',
 	    success: callback
 	  });
@@ -45,7 +47,7 @@ var API = {
 
 	setCommand: function(path, data, callback) {
 	  $.ajax({
-	    url: '/set',
+	    url: RoutesPaths.setCommand,
 	    data: { address: path, data: data },
 	    success: callback
 	  });
@@ -53,7 +55,7 @@ var API = {
 
 	lsCommand: function(path, callback) {
 	  $.ajax({
-	    url: '/ls',
+	    url: RoutesPaths.lsCommand,
 	    data: { address: path },
 	    success: callback
 	  });
@@ -61,7 +63,7 @@ var API = {
 
 	openCommand: function(path, callback) {
 	  $.ajax({
-	    url: '/open',
+	    url: RoutesPaths.openCommand,
 	    data: { address: path },
 	    success: callback
 	  });
@@ -69,7 +71,7 @@ var API = {
 
 	mvCommand: function(fromPath, toPath, callback) {
 	  $.ajax({
-	    url: '/mv',
+	    url: RoutesPaths.mvCommand,
 	    data: { from: fromPath, to: toPath },
 	    success: callback
 	  });
@@ -77,7 +79,7 @@ var API = {
 
 	cpCommand: function(fromPath, toPath, callback) {
 	  $.ajax({
-	    url: '/cp',
+	    url: RoutesPaths.cpCommand,
 	    data: { from: fromPath, to: toPath },
 	    success: callback
 	  });
@@ -85,7 +87,7 @@ var API = {
 
 	rmCommand: function(path, callback) {
 		$.ajax({
-	    url: '/rm',
+	    url: RoutesPaths.rmCommand,
 	    data: { address: path },
 	    success: callback
 	  });
@@ -93,7 +95,7 @@ var API = {
 
 	mkdirCommand: function(path, callback) {
 		$.ajax({
-	    url: '/mkdir',
+	    url: RoutesPaths.mkdirCommand,
 	    data: { address: path },
 	    success: callback
 	  });

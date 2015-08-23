@@ -2,8 +2,10 @@ var express = require('express');
 var path = require('path');
 var fs = require('fs');
 var querystring = require('querystring');
+
 var fileStruct = require('../utils/fileStruct');
- 
+var RoutesPaths = require('./RoutesPaths');
+
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
@@ -22,7 +24,7 @@ router.get('/', function(req, res, next) {
 	
   res.send('done');
 
-  console.log('set', address);
+  console.log(RoutesPaths.setCommand, address);
 });
 
 module.exports = router;

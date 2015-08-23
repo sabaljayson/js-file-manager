@@ -2,6 +2,8 @@ var express = require('express');
 var path = require('path');
 var open = require('open');
 
+var RoutesPaths = require('./RoutesPaths');
+
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
@@ -13,7 +15,7 @@ router.get('/', function(req, res, next) {
 
   res.send('done');
 
-  console.log('open'+ req.query.address);
+  console.log(RoutesPaths.openCommand, req.query.address);
 });
 
 module.exports = router;

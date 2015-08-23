@@ -1,60 +1,49 @@
 var http = require('http');
-var socketIo = require('socket.io');
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var Path = require('path');
 var open = require('open');
+var express = require('express');
+var socketIo = require('socket.io');
+var favicon = require('serve-favicon');
+var escapeRegexp = require('escape-regexp');
 
 require('sugar');
 
-var port = 3000;
+var PORT = 3000;
 
-var routes = {
-  index: require('./routes/index'),
-  lsCommand: require('./routes/lsCommand'),
-  mkdirCommand: require('./routes/mkdirCommand'),
-  openCommand: require('./routes/openCommand'),
-  rmCommand: require('./routes/rmCommand'),
-  mvCommand: require('./routes/mvCommand'),
-  watchCommand: require('./routes/watchCommand'),
-  thumbCommand: require('./routes/thumbCommand'),
-  setCommand: require('./routes/setCommand')
-};
-
-console.log('Open on http://localhost:' + port);
+var bowerPath = Path.join(__dirname, 'bower_components');
+var publicPath = Path.join(__dirname, 'public');
+var faviconPath = Path.join(__dirname, 'public/img/favicon.ico');
 
 var app = express();
 
-app.set('port', port);
+app.set('port', PORT);
 app.set('views', __dirname);
 app.set('view engine', 'ejs');
 
-app.use(favicon(__dirname + '/public/img/favicon.ico'));
-// app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
+app.use(favicon(faviconPath));
+app.use(express.static(publicPath));
+app.use('/bower_components', express.static(bowerPath));
 
+var RoutesPaths = require('./routes/RoutesPaths');
+var indexRegExp = new RegExp(escapeRegexp(RoutesPaths.index) + '.+');
 
-app.use('/', routes.index);
-app.use(/\/path=.+/, routes.index);
-app.use('/ls', routes.lsCommand);
-app.use('/rm', routes.rmCommand);
-app.use('/mv', routes.mvCommand);
-app.use('/get', express.static('/'));
-app.use('/set', routes.setCommand);
-app.use('/mkdir', routes.mkdirCommand);
-app.use('/open', routes.openCommand);
-app.use('/watch', routes.watchCommand);
-app.use('/thumb', routes.thumbCommand);
+app.use('/', 													require('./routes/index'));
+app.use(indexRegExp, 									require('./routes/index'));
+app.use(RoutesPaths.lsCommand, 				require('./routes/lsCommand'));
+app.use(RoutesPaths.rmCommand, 				require('./routes/rmCommand'));
+app.use(RoutesPaths.mvCommand, 				require('./routes/mvCommand'));
+app.use(RoutesPaths.getCommand, 			require('./routes/getCommand'));
+app.use(RoutesPaths.setCommand, 			require('./routes/setCommand'));
+app.use(RoutesPaths.mkdirCommand, 		require('./routes/mkdirCommand'));
+app.use(RoutesPaths.openCommand, 			require('./routes/openCommand'));
+app.use(RoutesPaths.watchCommand, 		require('./routes/watchCommand'));
+app.use(RoutesPaths.thumbCommand, 		require('./routes/thumbCommand'));
 
 var server = http.createServer(app);
-server.listen(port);  
+
+server.listen(PORT, function() {
+	console.log('Open on http://localhost:' + PORT);
+});
 
 var io = socketIo(server);
 app.set('socketIo', io);

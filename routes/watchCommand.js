@@ -3,8 +3,10 @@ var mime = require('mime');
 var path = require('path');
 var express = require('express');
 var querystring = require('querystring');
+
 var fileStruct = require('../utils/fileStruct');
- 
+var RoutesPaths = require('./RoutesPaths');
+
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
@@ -53,7 +55,7 @@ router.get('/', function(req, res, next) {
 	req.app.set('watchers', watchers);
 
 	res.end('done');
-	console.log('watch', address);	
+	console.log(RoutesPaths.watchCommand, address);	
 });
 
 module.exports = router;
