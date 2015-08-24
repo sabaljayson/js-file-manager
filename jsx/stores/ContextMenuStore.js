@@ -88,6 +88,17 @@ function getFileItems(selectedFiles) {
   var selLabel = getSelLabel(files, dirs);
   var items = [];
 
+  var execFiles = files.filter(f => f.is_executable);
+
+  if (execFiles.length && ! dirs.length) {
+    items.push({
+      label: 'Run ' + selLabel,
+      onclick: () => {
+        execFiles.forEach(f => API.executeCommand(f.path));
+      }
+    });
+  }
+
   if (dirs.length <= 1) {
     items.push({
       label: 'Open ' + selLabel,
@@ -97,7 +108,7 @@ function getFileItems(selectedFiles) {
           .map(f => f.id)
           .forEach(FileManagerActions.openFile);
       }
-    })
+    });
   }
 
   items.push({

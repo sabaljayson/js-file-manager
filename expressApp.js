@@ -38,6 +38,7 @@ app.use(RoutesPaths.mkdirCommand, 		require('./routes/mkdirCommand'));
 app.use(RoutesPaths.openCommand, 			require('./routes/openCommand'));
 app.use(RoutesPaths.watchCommand, 		require('./routes/watchCommand'));
 app.use(RoutesPaths.thumbCommand, 		require('./routes/thumbCommand'));
+app.use(RoutesPaths.executeCommand,		require('./routes/executeCommand'));
 
 var server = http.createServer(app);
 

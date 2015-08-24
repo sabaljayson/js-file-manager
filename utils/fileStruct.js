@@ -2,6 +2,7 @@ var fs = require('fs');
 var md5 = require('md5');
 var mime = require('mime');
 var path = require('path');
+var executable = require('executable');
 
 module.exports = function(pathToFile) {
 	var stats = fs.lstatSync(pathToFile);
@@ -20,6 +21,7 @@ module.exports = function(pathToFile) {
 		size: stats.size,
 		mtime: stats.mtime,
 		selected: false,
+		is_executable: executable.sync(pathToFile),
 		is_dir: isDir,
 		is_image: isImage(fileMime, stats.size),
 		is_video: fileMime.has('video'),

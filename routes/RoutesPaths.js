@@ -8,5 +8,6 @@ module.exports = {
 	mkdirCommand: '/mkdir',
 	openCommand: '/open',
 	watchCommand: '/watch',
-	thumbCommand: '/thumb'
+	thumbCommand: '/thumb',
+	executeCommand: '/exec'
 };

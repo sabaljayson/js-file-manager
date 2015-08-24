@@ -1,4 +1,5 @@
 var notifyThat = {
+	failed: errorString => notifyMessage(errorString),
 
 	fileSaved: notifier('File saved!'),
 	fileSaveFailed: fileName => notifyMessage(fileName + ' save error!')

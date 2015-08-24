@@ -1,5 +1,6 @@
 var Path = require('path');
 
+var notifyThat = require('./notifyThat');
 var RoutesPaths = require('../../routes/RoutesPaths');
 
 var dirUrlPrefix = RoutesPaths.index;
@@ -38,68 +39,56 @@ var API = {
 	},
 
 	getCommand: function(path, callback) {
-	  $.ajax({
-	    url:  Path.join(RoutesPaths.getCommand, path),
-	    dataType: 'text',
-	    success: callback
-	  });
+		var getUrl = Path.join(RoutesPaths.getCommand, path);
+		ajax(getUrl, {}, callback);
 	},
 
 	setCommand: function(path, data, callback) {
-	  $.ajax({
-	    url: RoutesPaths.setCommand,
-	    data: { address: path, data: data },
-	    success: callback
-	  });
+		ajax(RoutesPaths.setCommand, { address: path, data: data }, callback);
 	},
 
 	lsCommand: function(path, callback) {
-	  $.ajax({
-	    url: RoutesPaths.lsCommand,
-	    data: { address: path },
-	    success: callback
-	  });
+		ajax(RoutesPaths.lsCommand, { address: path }, callback);
 	},
 
 	openCommand: function(path, callback) {
-	  $.ajax({
-	    url: RoutesPaths.openCommand,
-	    data: { address: path },
-	    success: callback
-	  });
+		ajax(RoutesPaths.openCommand, { address: path }, callback);
 	},
 
 	mvCommand: function(fromPath, toPath, callback) {
-	  $.ajax({
-	    url: RoutesPaths.mvCommand,
-	    data: { from: fromPath, to: toPath },
-	    success: callback
-	  });
+		ajax(RoutesPaths.mvCommand, { from: fromPath, to: toPath }, callback);
 	},
 
 	cpCommand: function(fromPath, toPath, callback) {
-	  $.ajax({
-	    url: RoutesPaths.cpCommand,
-	    data: { from: fromPath, to: toPath },
-	    success: callback
-	  });
+		ajax(RoutesPaths.cpCommand, { from: fromPath, to: toPath }, callback);
 	},
 
 	rmCommand: function(path, callback) {
-		$.ajax({
-	    url: RoutesPaths.rmCommand,
-	    data: { address: path },
-	    success: callback
-	  });
+		ajax(RoutesPaths.rmCommand, { address: path }, callback);
 	},
 
 	mkdirCommand: function(path, callback) {
-		$.ajax({
-	    url: RoutesPaths.mkdirCommand,
-	    data: { address: path },
-	    success: callback
-	  });
+		ajax(RoutesPaths.mkdirCommand, { address: path }, callback);
+	},
+
+	executeCommand: function(path, callback) {
+		ajax(RoutesPaths.executeCommand, { address: path }, callback);
 	}
 };
 
 module.exports = API;
+
+function ajax(url, args, callback) {
+	$.ajax({
+    url: url,
+    data: args,
+    success: function(data) {
+    	if (data === 'error') {
+    		notifyThat.failed('Failed ' + url + ' ' + JSON.stringify(args));
+    		return;
+    	}
+
+    	callback(data);
+    }
+  });
+}
