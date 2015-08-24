@@ -79,8 +79,10 @@ body {
 
 .grid-file-element img {
 	height: 70px !important;
-	width: 70px !important;
-	border: 1px solid #eee;
+  max-width: 70px !important;
+  border: 1px solid #eee;
+  display: block;
+  margin: 0 auto;
 }
 
 .grid-file-element.selected img {
