@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 		res.send('error');
 	}
 
-	var address = querystring.unescape(req.query.address);
+	var address = req.query.address;
 
 	if (fs.existsSync(address)) {
 		if (fileStruct(address).is_dir) {
@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
 		}
 	}
 
-	res.end('error');
+	res.end('done');
 	console.log(RoutesPaths.rmCommand, address);
 });
 

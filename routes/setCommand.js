@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 		res.send('error');
 	}
 
-	var address = querystring.unescape(req.query.address);
+	var address = req.query.address;
 
 	try {
 		fs.writeFileSync(address, req.query.data, {flag: 'w'});

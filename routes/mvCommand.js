@@ -13,8 +13,8 @@ router.get('/', function(req, res, next) {
 		res.send('error');
 	}
 
-	var from = querystring.unescape(req.query.from);
-	var to = querystring.unescape(req.query.to);
+	var from = req.query.from;
+	var to = req.query.to;
 
 	try {
 		fs.renameSync(from, to);

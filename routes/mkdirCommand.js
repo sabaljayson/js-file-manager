@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 		res.send('error');
 	}
 
-	var address = querystring.unescape(req.query.address);
+	var address = req.query.address;
 
 	mkdirp(address, function(err) {
 		if (err) return;
