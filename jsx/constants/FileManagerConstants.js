@@ -11,6 +11,9 @@ module.exports = constance('FILE_MANAGER_CONSTANTS_', [
   'SET_FILE_SELECTION',
   'MOVE_SELECTION',
 
+  'FILE_DRAG_START',
+  'FILE_DRAG_END',
+
   'CREATE_DIRECTORY',
   'OPEN_FILE',
   'MOVE_FILE',

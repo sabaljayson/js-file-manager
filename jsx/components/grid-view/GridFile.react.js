@@ -36,7 +36,7 @@ class GridFile extends React.Component {
       'dragged': file.dragged
     });
 
-    var draggable = Draggable(this, gridDragImageView);
+    var draggable = Draggable(gridDragImageView);
 
     return draggable(
       <div

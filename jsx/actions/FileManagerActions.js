@@ -111,6 +111,20 @@ var FileManagerActions = {
       id: id
     });
   },
+  
+  fileDragStarted: function(id) {
+    AppDispatcher.dispatch({
+      actionType: FileManagerConstants.FILE_DRAG_START,
+      id: id
+    });
+  },
+
+  fileDragEnded: function(id) {
+    AppDispatcher.dispatch({
+      actionType: FileManagerConstants.FILE_DRAG_END,
+      id: id
+    });
+  },
 
   historyBack: function(e) {
     AppDispatcher.dispatch({

@@ -49,7 +49,7 @@ class ListFile extends React.Component {
       filename = 'Move into ' + filename;
     }
 
-    var draggable = Draggable(this, listDragImageView);    
+    var draggable = Draggable(listDragImageView);
     var droppable = Droppable(this, this.state.path);
     if (! file.is_dir) {
       droppable = (el => el);

@@ -16,10 +16,10 @@
     "draggabilly": "~1.2.4",
     "snackbarjs": "~1.0.0",
     "jquery": "~2.1.4",
-    "underscore": "~1.8.3",
     "sugar": "~1.4.1",
     "bootstrap-contextmenu": "~0.3.3",
     "react-bootstrap-treeview": "~0.1.0",
-    "arrive": "~2.2.0"
+    "arrive": "~2.2.0",
+    "lodash": "~3.10.1"
   }
 }

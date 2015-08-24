@@ -1,24 +1,19 @@
 var React = require('react');
 
 var FileManagerStore = require('../stores/FileManagerStore');
+var FileManagerActions = require('../actions/FileManagerActions');
 var DragImage = require('../utils/DragImage');
 var API = require('../utils/API');
 
-module.exports = function(self, dragImageView) {
+module.exports = function(dragImageView) {
   var props = {
+    draggable: 'true',
     onDragStart: function(e) {
-      this.setState({
-        dragged: true
-      });
-
       var selectedFiles = FileManagerStore.getSelectedFiles();
-      var transferData = selectedFiles.map(f => {
-        var apiUrl = f.is_dir ? API.directoryUrl : API.fileUrl;
-        return apiUrl(f.path);
-      }).join('\n');
+      selectedFiles.map(f => f.id).forEach(FileManagerActions.fileDragStarted);
 
       e.dataTransfer.dropEffect = 'move';
-      e.dataTransfer.setData('text/plain', transferData);
+      e.dataTransfer.setData('text/plain', transferData(selectedFiles));
 
       var dragImage = dragImageView(selectedFiles);
       var dragImageNode = DragImage.set(dragImage);
@@ -26,20 +21,21 @@ module.exports = function(self, dragImageView) {
     },
 
     onDragEnd: function() {
-      this.setState({
-        dragged: false
-      });
-
       DragImage.clear();
+
+      var selectedFiles = FileManagerStore.getSelectedFiles();
+      selectedFiles.map(f => f.id).forEach(FileManagerActions.fileDragEnded);
     }
   };
-
-  for (var key in props) {
-    props[key] = props[key].bind(self);
-  }
-  props.draggable = 'true';
 
   return function(element) {
     return React.cloneElement(element, props);
   };
 };
+
+function transferData(files) {
+  return files.map(f => {
+    var apiUrl = f.is_dir ? API.directoryUrl : API.fileUrl;
+    return apiUrl(f.path);
+  }).join('\n');
+}

@@ -353,6 +353,16 @@ FileManagerStore.dispatchToken = AppDispatcher.register(function(action) {
       API.rmCommand(filePath);
       break;
 
+    case FileManagerConstants.FILE_DRAG_START:
+      FileManagerStore.getFile(action.id).dragged = true;
+      FileManagerStore.emitFileChange(action.id);
+      break;
+
+    case FileManagerConstants.FILE_DRAG_END:
+      FileManagerStore.getFile(action.id).dragged = false;
+      FileManagerStore.emitFileChange(action.id);
+      break;
+
     default:
       // no op
   }
