@@ -3,14 +3,15 @@ var path = require('path');
 var fs = require('fs');
 var querystring = require('querystring');
 
-var fileStruct = require('../utils/fileStruct');
 var RoutesPaths = require('./RoutesPaths');
+var response = require('../utils/response');
+var fileStruct = require('../utils/fileStruct');
 
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
 	if (! req.query.hasOwnProperty('address') || ! req.query.hasOwnProperty('data')) {
-		res.send('error');
+		return response(res).fail('set, invalid arguments');
 	}
 
 	var address = req.query.address;
@@ -19,12 +20,11 @@ router.get('/', function(req, res, next) {
 		fs.writeFileSync(address, req.query.data, {flag: 'w'});
 	}
 	catch (e) {
-		console.log(e);
-	}
-	
-  res.send('done');
+		return response(res).fail(e);
+	}	
 
   console.log(RoutesPaths.setCommand, address);
+  return response(res).success();
 });
 
 module.exports = router;

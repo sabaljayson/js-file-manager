@@ -3,14 +3,15 @@ var path = require('path');
 var fs = require('fs');
 var querystring = require('querystring');
 
-var fileStruct = require('../utils/fileStruct');
 var RoutesPaths = require('./RoutesPaths');
+var response = require('../utils/response');
+var fileStruct = require('../utils/fileStruct');
 
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
 	if (! req.query.hasOwnProperty('address')) {
-		res.send('error');
+		return response(res).fail('ls, invalid arguments');
 	}
 
 	var address = req.query.address;
@@ -21,12 +22,11 @@ router.get('/', function(req, res, next) {
 		return fileStruct(pathToFile);
 	});
 	
-  res.send({
+  console.log(RoutesPaths.lsCommand, address);
+  return response(res).success({
   	dirData: fileStruct(address),
   	files: files
   });
-
-  console.log(RoutesPaths.lsCommand, address);
 });
 
 module.exports = router;

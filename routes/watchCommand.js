@@ -4,16 +4,31 @@ var path = require('path');
 var express = require('express');
 var querystring = require('querystring');
 
-var fileStruct = require('../utils/fileStruct');
 var RoutesPaths = require('./RoutesPaths');
+var response = require('../utils/response');
+var fileStruct = require('../utils/fileStruct');
 
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
 	if (! req.query.hasOwnProperty('address') || ! req.query.hasOwnProperty('socketId')) {
-		res.send('error');
+		return response(res).fail('watch, invalid arguments');
 	}
 
+	try {
+		initWatcher(req);
+	}
+	catch (e) {
+		return response(res).fail(e);
+	}
+
+	console.log(RoutesPaths.watchCommand, req.query.address);	
+	return response(res).success();
+});
+
+module.exports = router;
+
+function initWatcher(req) {
 	var address = req.query.address;
 	var socketId = req.query.socketId;
 
@@ -52,10 +67,5 @@ router.get('/', function(req, res, next) {
 	}
 	
 	watchers[socketId] = watcher;
-	req.app.set('watchers', watchers);
-
-	res.end('done');
-	console.log(RoutesPaths.watchCommand, address);	
-});
-
-module.exports = router;
+	req.app.set('watchers', watchers);	
+}

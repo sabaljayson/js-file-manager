@@ -3,28 +3,29 @@ var path = require('path');
 var express = require('express');
 var querystring = require('querystring');
 
-var fileStruct = require('../utils/fileStruct');
 var RoutesPaths = require('./RoutesPaths');
+var response = require('../utils/response');
+var fileStruct = require('../utils/fileStruct');
 
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
 	if (! req.query.hasOwnProperty('from') || ! req.query.hasOwnProperty('to')) {
-		res.send('error');
+		return response(res).fail('cp, invalid arguments');
 	}
 
-	var from = querystring.unescape(req.query.from);
-	var to = querystring.unescape(req.query.to);
+	var from = req.query.from;
+	var to = req.query.to;
 
 	try {
 		fs.copySync(from, to);
 	}
 	catch(e) {
-		console.log(e);
+		return response(res).fail(e);
 	}
 
-	res.end('done');
 	console.log(RoutesPaths.cpCommand, from, to);
+	return response(res).success();
 });
 
 module.exports = router;

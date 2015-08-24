@@ -3,19 +3,24 @@ var path = require('path');
 var open = require('open');
 
 var RoutesPaths = require('./RoutesPaths');
+var response = require('../utils/response');
 
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
 	if (! req.query.hasOwnProperty('address')) {
-		res.send('error');
+		return response(res).fail('open, Invalid arguments');
 	}
 
-	open(req.query.address);
-
-  res.send('done');
+	try {
+		open(req.query.address);
+	}
+	catch (e) {
+		return response(res).fail(e);
+	}
 
   console.log(RoutesPaths.openCommand, req.query.address);
+  return response(res).success();
 });
 
 module.exports = router;
