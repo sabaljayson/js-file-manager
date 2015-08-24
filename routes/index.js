@@ -1,9 +1,11 @@
 var express = require('express');
+var osenv = require('osenv');
 var fs = require('fs');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-	var filesDir = '/home';
+	var filesDir = osenv.home();
+	
 	var found = req.baseUrl.indexOf('/$');
 	if (found == 0) {
 		filesDir = req.baseUrl.split('/$')[1];
