@@ -1,5 +1,6 @@
 var fs = require('fs');
 var path = require('path');
+var rimraf = require('rimraf');
 var express = require('express');
 var querystring = require('querystring');
 var fileStruct = require('../utils/fileStruct');
@@ -17,7 +18,7 @@ router.get('/', function(req, res, next) {
 
 	if (fs.existsSync(address)) {
 		if (fileStruct(address).is_dir) {
-			fs.rmdirSync(address);
+			rimraf.sync(address);	// rm -rf
 		}
 		else {
 			fs.unlinkSync(address);
