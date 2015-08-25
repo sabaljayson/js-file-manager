@@ -51,6 +51,10 @@ var API = {
 		ajax(RoutesPaths.lsCommand, { address: path }, callback);
 	},
 
+	watchCommand: function(path, socketId, callback) {
+		ajax(RoutesPaths.watchCommand, { address: path, socketId: socketId }, callback);
+	},
+
 	openCommand: function(path, callback) {
 		ajax(RoutesPaths.openCommand, { address: path }, callback);
 	},

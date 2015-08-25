@@ -63,28 +63,21 @@ function watchDirectory(path) {
   }
 
   function ajaxWatch() {
-    $.ajax({
-      url: '/watch',
-      data: {
-        address: path,
-        socketId: _storeData.socket.id 
-      },
-      success: function() {
-        _storeData.socket.removeAllListeners('directoryChange');
-        _storeData.socket.on('directoryChange', function(data) {
-          if (data.type == 'changed') {
-            fileChanged(data.file);
-            FileManagerStore.emitChange();
-          }
-          else if (data.type == 'removed') {
-            fileRemoved(data.path);
-            FileManagerStore.emitChange();
-          }
-          else {
-            throw "Unknown directoryChange type";
-          }
-        });
-      }
+    API.watchCommand(path, _storeData.socket.id, function() {
+      _storeData.socket.removeAllListeners('directoryChange');
+      _storeData.socket.on('directoryChange', function(data) {
+        if (data.type == 'changed') {
+          fileChanged(data.file);
+          FileManagerStore.emitChange();
+        }
+        else if (data.type == 'removed') {
+          fileRemoved(data.path);
+          FileManagerStore.emitChange();
+        }
+        else {
+          throw "Unknown directoryChange type";
+        }
+      });
     });
   }
 
