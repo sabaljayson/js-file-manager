@@ -10,17 +10,17 @@ class NavBar extends React.Component {
 
 	render() {
 		return (
-			<div className='navbar navbar-primary navbar-fixed-top' style={{paddingRight: 10}}>
+			<div className='navbar navbar-primary navbar-fixed-top'>
 				<div className='row' style={{marginBottom: 1}}>
 				  <div className='col-md-12'>
 						<DirectoriesBreadcrumb path={this.props.path}/>
 
-				    <ul className='nav navbar-nav navbar-right'>
+				    <ul className='nav navbar-nav navbar-right' style={{marginRight: 0}}>
 				    	<FilesViewButton viewType={this.props.viewType}/>
 							<SortFilesButton/>
 				      <li>
-				      	<a className='material-ripples'>
-				      		<i className='mdi-action-settings'></i>
+				      	<a>
+				      		<i className='material-icons'>more_vert</i>
 				      	</a>
 				      </li>
 				    </ul>

@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
 	}
 
 	res.render('index', {
-		basePath: 'http://localhost:3000',
+		basePath: 'http://localhost:' + req.app.get('port'),
 		filesDir: filesDir
 	});
 

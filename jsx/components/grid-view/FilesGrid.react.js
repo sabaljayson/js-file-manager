@@ -37,8 +37,8 @@ class FilesGrid extends React.Component {
       enterArea: self._selectFile,
       exitArea: self._unselectFile
     }, {
-      borderColor: '#009688',
-      backgroundColor: 'rgba(0, 150, 136, 0.3)'
+      borderColor: '#337ab7',
+      backgroundColor: 'rgba(215, 233, 249, 0.44)'
     });
   }
 
@@ -67,11 +67,10 @@ class FilesGrid extends React.Component {
         className='files-grid-element'
         onClick={this._onClick}
         onContextMenu={this._onContextMenu} >
-        <div>
+        <div>          
           {folders.map(f => <GridFolder key={f.id} id={f.id}></GridFolder>)}
         </div>
-        <hr></hr>
-        <div style={{minHeight: 200}}>
+        <div style={{marginTop: 10, minHeight: 200}}>
           {files.map(f => <GridFile key={f.id} id={f.id}></GridFile>)}
         </div>
       </div>

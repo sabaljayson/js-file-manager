@@ -68,7 +68,7 @@ class ListFile extends React.Component {
           {
             file.is_dir
             ? <i className='mdi-file-folder mdi-material-grey' />
-            : <img src={file.thumbSrc} style={{width: 25, marginRight: 5}} />
+            : <img src={file.thumbSrc} style={{height: 25, width: 25, marginRight: 5}} />
           }
           {filename}
         </td>

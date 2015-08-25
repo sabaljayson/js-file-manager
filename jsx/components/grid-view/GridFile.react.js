@@ -1,4 +1,5 @@
-var React = require('react');
+var React = require('react/addons');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var classNames = require('classnames');
 
 var FileManagerActions = require('../../actions/FileManagerActions');
@@ -39,15 +40,18 @@ class GridFile extends React.Component {
     var draggable = Draggable(gridDragImageView);
 
     return draggable(
-      <div
-        className={classes}
-        id={file.id}
-        onMouseDown={this._onMouseDown.bind(this)}
-        onDoubleClick={this._onDoubleClick.bind(this)}
-        onContextMenu={this._onContextMenu.bind(this)} >
-        <img draggable='false' src={file.thumbSrc} />
-        <p>{file.filename}</p>
-  		</div>
+      <ReactCSSTransitionGroup transitionName='opacity-animation' transitionAppear={true}>
+        <div
+          className={classes}
+          key={file.id}
+          id={file.id}
+          onMouseDown={this._onMouseDown.bind(this)}
+          onDoubleClick={this._onDoubleClick.bind(this)}
+          onContextMenu={this._onContextMenu.bind(this)} >
+          <img draggable='false' src={file.thumbSrc} />
+          <p>{file.filename}</p>
+    		</div>
+      </ReactCSSTransitionGroup>
   	)
   }
 

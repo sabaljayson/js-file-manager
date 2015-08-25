@@ -13,7 +13,7 @@ class Breadcrumb extends React.Component {
   }
 
   render() {
-    var classes = classNames('material-ripples', {
+    var classes = classNames({
       'drag-over': this.state.dragOver
     });
 
