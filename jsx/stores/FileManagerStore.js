@@ -214,6 +214,10 @@ var FileManagerStore = assign({}, EventEmitter.prototype, {
     return _storeData.settings;
   },
 
+  getSortValues: function() {
+    return _storeData.sort;
+  },
+
   getContentPane: function() {
     return true;
     

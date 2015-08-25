@@ -10,7 +10,8 @@ var ListFile = require('./ListFile.react');
 
 function getState() {
   return {
-    files: FileManagerStore.getFiles()
+    files: FileManagerStore.getFiles(),
+    sortValues: FileManagerStore.getSortValues()
   };
 }
 
@@ -73,9 +74,9 @@ class FilesList extends React.Component {
         <table className='table table-condensed'>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Size</th>
-              <th>Modification time</th>
+              <th onClick={this._sortByMethod('name')}>Name</th>
+              <th onClick={this._sortByMethod('size')}>Size</th>
+              <th onClick={this._sortByMethod('mtime')}>Modification time</th>
             </tr>
           </thead>
           <tbody>
@@ -103,7 +104,7 @@ class FilesList extends React.Component {
     
     FileManagerActions.unselectAllFiles();
     ContextMenuActions.open(e.pageY, e.pageX);
-  }
+  }  
 
   _selectFile(node) {
     FileManagerActions.setFileSelection(node.id, true);
@@ -113,6 +114,22 @@ class FilesList extends React.Component {
     if (FileManagerStore.getFile(node.id).selected) {
       FileManagerActions.setFileSelection(node.id, false);
     }
+  }
+
+  _sortByMethod(method) {
+    return () => {
+      var newOrder = this.state.sortValues.order;
+      var newMethod = this.state.sortValues.method;
+
+      if (method === this.state.sortValues.method) {
+        newOrder = -this.state.sortValues.order;
+      }
+      else {
+        newMethod = method;
+      }
+
+      FileManagerActions.sortFilesBy(newMethod, newOrder);
+    };
   }
 }
 

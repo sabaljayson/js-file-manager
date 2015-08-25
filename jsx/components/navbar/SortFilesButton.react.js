@@ -1,13 +1,23 @@
 var React = require('react');
+var FileManagerStore = require('../../stores/FileManagerStore');
 var FileManagerActions = require('../../actions/FileManagerActions');
+
+function getState() {
+  return FileManagerStore.getSortValues();
+}
 
 class SortFilesButton extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      method: 'name',
-      order: 1
-    };
+    this.state = getState();
+  }
+
+  componentDidMount() {
+    FileManagerStore.addChangeListener(this._onChange.bind(this));
+  }
+
+  componentWillUnmount() {
+    FileManagerStore.removeChangeListener(this._onChange.bind(this));
   }
 
   render() {
@@ -30,14 +40,16 @@ class SortFilesButton extends React.Component {
 
   _sortByMethod(method) {
   	return () => {
-  		this.state.method = method;
   		FileManagerActions.sortFilesBy(method, this.state.order);
   	};
   }
 
   _reverseSort() {
-  	this.state.order *= -1;
-  	FileManagerActions.sortFilesBy(this.state.method, this.state.order);  	
+  	FileManagerActions.sortFilesBy(this.state.method, -this.state.order);
+  }
+
+  _onChange() {
+    this.setState(getState());
   }
 }
 
