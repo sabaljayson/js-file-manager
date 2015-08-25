@@ -92,7 +92,7 @@ function ajax(url, args, callback) {
     		return;
     	}
 
-    	callback(data);
+    	callback && callback(data);
     }
   });
 }
