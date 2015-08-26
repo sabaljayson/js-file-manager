@@ -38,8 +38,8 @@ class FilesList extends React.Component {
       enterArea: self._selectFile,
       exitArea: self._unselectFile
     }, {
-      borderColor: '#009688',
-      backgroundColor: 'rgba(0, 150, 136, 0.3)'
+      borderColor: '#337ab7',
+      backgroundColor: 'rgba(215, 233, 249, 0.44)'
     });
   }
 
@@ -56,10 +56,7 @@ class FilesList extends React.Component {
     var files = this.state.files.filter(f => ! f.is_dir);
     var minHeight = window.innerHeight - $('.navbar').height();
     var styles = {
-      height: minHeight,
-      overflowY: 'auto',
-      backgroundColor: 'white',
-      zIndex: 10
+      height: minHeight
     };
 
     var files = folders.concat(files).filter(fileViewable);

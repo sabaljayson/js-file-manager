@@ -50,12 +50,12 @@ class FileManager extends React.Component {
 			throw 'Unknown files view type ' + viewType;
 		}
 
-		var split1 = classNames({
+		var split1 = classNames('files-view-panel', {
 			'col-xs-6': this.state.settings.contentPaneOpen,
 			'col-xs-12': ! this.state.settings.contentPaneOpen
 		});
 
-		var split2 = classNames({
+		var split2 = classNames('content-pane-panel', {
 			'col-xs-6': this.state.settings.contentPaneOpen,
 			'col-xs-0': ! this.state.settings.contentPaneOpen
 		});		
@@ -71,7 +71,7 @@ class FileManager extends React.Component {
 		        <div className={split1} style={{borderRight: '1px solid #eee', zIndex: 10, paddingRight: 0}}>
 		          {filesViewComponent}
 		        </div>
-		        <div className={split2} style={{height: '100%', padding: 0, background: '#eee'}}>
+		        <div className={split2} style={{height: '100%', padding: 0}}>
 		          <ContentPane />
 		        </div>
 		  		</div>

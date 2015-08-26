@@ -24,7 +24,6 @@ class FilesViewButton extends React.Component {
   	return (
       <li>
       	<a
-          className='material-ripples'
           onClick={this._toggleViewType.bind(this)} >
       		<i className='material-icons'>{icon}</i>
       	</a>

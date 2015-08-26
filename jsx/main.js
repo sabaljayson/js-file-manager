@@ -8,11 +8,6 @@ var FileManager = require('./components/FileManager.react');
 
 $(document).ready(function() {
 
-	// Enable $.material for all newly created elems with .material-ripples
-	$(document).arrive('.material-ripples', function() {
-	  $.material.ripples('.material-ripples');
-	});
-
 	var MainNode = $('#file-manager-container');
 	React.render(<FileManager/>, MainNode.get(0));
 	FileManagerActions.changePath(CONSTS.DEFAULT_DIR);

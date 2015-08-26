@@ -1,4 +1,5 @@
-var React = require('react');
+var React = require('react/addons');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var classNames = require('classnames');
 
 var FileManagerActions = require('../../actions/FileManagerActions');
@@ -34,8 +35,7 @@ class GridFolder extends React.Component {
     }
 
     var classes = classNames(
-      'grid-folder-element',
-      'btn', 'btn-default', 'btn-raised', {
+      'grid-folder-element', {
       'selected': file.selected,
       'drag-over': file.dragOver,
       'dragged': file.dragged
@@ -45,18 +45,18 @@ class GridFolder extends React.Component {
     var droppable = Droppable(this, this.state.path);
 
     return draggable(droppable(
-      <a
-        title={file.filename}
-        id={this.props.id}
-        onClick={this._onClick.bind(this)}
-        onMouseDown={this._onMouseDown.bind(this)}
-        onContextMenu={this._onContextMenu.bind(this)}
-        className={classes}>
-        <i
-          className='pull-left mdi-file-folder mdi-material-grey'
-          draggable='false'></i>
-        {file.filename}
-      </a>
+      <ReactCSSTransitionGroup transitionName='opacity-animation' transitionAppear={true}>
+        <a
+          title={file.filename}
+          id={this.props.id}
+          key={this.props.id}
+          onClick={this._onClick.bind(this)}
+          onMouseDown={this._onMouseDown.bind(this)}
+          onContextMenu={this._onContextMenu.bind(this)}
+          className={classes}>
+          {file.filename}
+        </a>
+      </ReactCSSTransitionGroup>
     ))
   }
 
