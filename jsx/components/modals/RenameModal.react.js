@@ -15,6 +15,12 @@ class RenameModal extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    var inputNode = this.refs.renamePattern.getInputDOMNode();
+    inputNode.focus();
+    inputNode.setSelectionRange(0, this.basename.length);
+  }
+
   render() {
     var files = this.props.files;
     var fileNames = files.map(f => f.filename).join(', ');
@@ -23,6 +29,8 @@ class RenameModal extends React.Component {
     var multipleFiles = files.length > 1;
     var ext = path.extname(files[0].filename);
     var basename = path.basename(files[0].filename, ext);
+
+    this.basename = basename;
 
     var rangeInputs = multipleFiles ? (
       <form className='row'>
@@ -59,7 +67,7 @@ class RenameModal extends React.Component {
     var footer = (
       <div>
         <Button onClick={this._renameFiles.bind(this)}>Rename</Button>
-        <Button onClick={FileOperationActions.closeModal}>Cancel</Button>          
+        <Button onClick={FileOperationActions.closeModal}>Cancel</Button>
       </div>
     );
 
@@ -71,7 +79,7 @@ class RenameModal extends React.Component {
         <Modal.Body>{body}</Modal.Body>
         <Modal.Footer>{footer}</Modal.Footer>
       </div>
-    )    
+    )
   }
 
   _renameFiles() {
@@ -83,7 +91,7 @@ class RenameModal extends React.Component {
       from = parseFloat(this.refs.renameFrom.getValue());
       to = parseFloat(this.refs.renameTo.getValue());
     }
-    
+
     var fileInd = 0;
 
     range(from, to + 1).forEach(i => {
