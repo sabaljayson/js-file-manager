@@ -1,12 +1,15 @@
 var assign = require('object-assign');
 var Path = require('path');
 var EventEmitter = require('events').EventEmitter;
-var mimeIcon = require('../utils/MimeIcon');
-var mod = require('../utils/Modulo');
+
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var FileManagerConstants = require('../constants/FileManagerConstants');
 var FileManagerActions = require('../actions/FileManagerActions');
 var fileViewable = require('../utils/FileViewable');
+
+var RoutesPaths = require('../../routes/RoutesPaths');
+var mod = require('../utils/Modulo');
+var mimeIcon = require('../utils/MimeIcon');
 var API = require('../utils/API');
 
 var CHANGE_EVENT = 'change';
@@ -41,11 +44,11 @@ function setPath(path) {
 
     sortFilesBy(_storeData.sort.method, _storeData.sort.order);
 
-    var dirUrl = API.directoryUrl(path);    
+    var dirUrl = API.directoryUrl(path);
     var state = dirUrl.substr(CONSTS.BASE_PATH.length);
     window.history.pushState('Object', 'Title', state);
 
-    
+
     FileManagerStore.emitChange();
   });
 }
@@ -94,7 +97,7 @@ function watchDirectory(path) {
 
   function fileRemoved(path) {
     _storeData.files.remove(f => f.path == path);
-  }  
+  }
 }
 
 function unselectAllFiles() {
@@ -119,34 +122,54 @@ function moveSelection(direction) {
   unselectAllFiles();
 
   FileManagerStore.emitFileChange(selFile.id);
-  
 
   switch (direction) {
     case 'left':
       var prevInd = mod(selInd - 1, files.length);
-      var file = files[prevInd];
-      file.selected = true;
-      FileManagerStore.emitFileChange(file.id);
+      selectAndEmitChange(files[prevInd]);
       break;
 
     case 'right':
       var nextInd = mod(selInd + 1, files.length);
-      var file = files[nextInd];
-      file.selected = true;
-      FileManagerStore.emitFileChange(file.id);
+      selectAndEmitChange(files[nextInd]);
       break;
 
     case 'up':
-      // TODO
+      selPos.top -= fileHeight;
+      var fileAbove = findNearest(selPos, files.filter(isInViewport));
+      selectAndEmitChange(fileAbove);
       break;
 
     case 'down':
-      // TODO
+      selPos.top += fileHeight;
+      var fileBelow = findNearest(selPos, files.filter(isInViewport));
+      selectAndEmitChange(fileBelow);
       break;
 
     default:
       throw "Unknown direction";
       break;
+  }
+
+  function selectAndEmitChange(file) {
+    file.selected = true;
+    FileManagerStore.emitFileChange(file.id);
+  }
+
+  function findNearest(pos, files) {
+    return files.map(f => {
+      return {
+        file: f,
+        pos: $('#' + f.id).offset()
+      };
+    }).sort((a, b) => {
+      return dist(pos, a.pos) - dist(pos, b.pos);
+    })[0].file;
+
+    function dist(p1, p2) {
+      var d = Math.pow(p1.top - p2.top, 2) + Math.pow(p1.left - p2.left, 2);
+      return Math.sqrt(d);
+    }
   }
 }
 
@@ -177,6 +200,14 @@ function sortFilesBy(method, order) {
 }
 
 function updateFilesThumbnails() {
+  _storeData.files.filter(f => f.is_image).filter(isInViewport).forEach(f => {
+    f.thumbSrc = CONSTS.BASE_PATH + RoutesPaths.thumbCommand + f.path;
+    FileManagerStore.emitFileChange(f.id);
+  });
+}
+
+/*
+function updateFilesThumbnails() {
   var files = _storeData.files;
   var scrollTop = $(document).scrollTop();
   var scrollBottom = scrollTop + window.innerHeight;
@@ -187,7 +218,7 @@ function updateFilesThumbnails() {
       var $file = $('#' + file.id);
       if (! $file.length)
         break;
-      
+
       var top = $file.offset().top;
 
       if (scrollTop <= top && top <= scrollBottom) {
@@ -196,6 +227,18 @@ function updateFilesThumbnails() {
       }
     }
   }
+}*/
+
+function isInViewport(file) {
+  var scrollTop = $(document).scrollTop();
+  var scrollBottom = scrollTop + window.innerHeight;
+  var $file = $('#' + file.id);
+
+  if (! $file.length)
+    return false;
+
+  var top = $file.offset().top;
+  return scrollTop <= top && top <= scrollBottom;
 }
 
 function setFileIcon(file) {
@@ -206,7 +249,7 @@ function setFileIcon(file) {
 function createDirectory(name) {
   var dirPath = Path.join(_storeData.path, name);
 
-  API.mkdirCommand(dirPath);  
+  API.mkdirCommand(dirPath);
 }
 
 var FileManagerStore = assign({}, EventEmitter.prototype, {
@@ -220,7 +263,7 @@ var FileManagerStore = assign({}, EventEmitter.prototype, {
 
   getContentPane: function() {
     return true;
-    
+
     var selFiles = FileManagerStore.getSelectedFiles();
     if (selFiles.length > 1)
       return false;
@@ -313,11 +356,11 @@ FileManagerStore.dispatchToken = AppDispatcher.register(function(action) {
 
     case FileManagerConstants.UPDATE_FILES_THUMBS:
       updateFilesThumbnails();
-      break;      
+      break;
 
     case FileManagerConstants.CREATE_DIRECTORY:
       createDirectory(action.name);
-      break;      
+      break;
 
     case FileManagerConstants.SET_FILE_SELECTION:
       var file = FileManagerStore.getFile(action.id);
