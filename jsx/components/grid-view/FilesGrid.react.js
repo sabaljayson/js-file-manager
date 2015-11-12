@@ -70,7 +70,7 @@ class FilesGrid extends React.Component {
         <div>          
           {folders.map(f => <GridFolder key={f.id} id={f.id}></GridFolder>)}
         </div>
-        <div style={{marginTop: 10, minHeight: 200}}>
+        <div style={{marginTop: 10, minHeight: 200, clear: 'left'}}>
           {files.map(f => <GridFile key={f.id} id={f.id}></GridFile>)}
         </div>
       </div>

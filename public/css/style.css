@@ -56,10 +56,10 @@ body {
 }
 
 .files-list-element {
-	padding-right: 5%;
-  overflow-y: auto;
-  background-color: white;
-  z-index: 10;
+    padding-right: 5%;
+    overflow-y: auto;
+    background-color: white;
+    z-index: 10;
 }
 
 .grid-folder-element {
@@ -89,7 +89,9 @@ body {
 	text-decoration: none;
 	text-overflow: ellipsis;
 	vertical-align: middle;
-	white-space: nowrap;
+    
+    float: left;
+    white-space: nowrap;
 }
 
 .grid-folder-element.drag-over {
@@ -138,11 +140,11 @@ body {
 }
 
 .grid-file-element img {
-	height: 70px !important;
-  max-width: 70px !important;
-  border: 1px solid white;
-  display: block;
-  margin: 0 auto;
+    height: 70px !important;
+    max-width: 70px !important;
+    border: 1px solid white;
+    display: block;
+    margin: 0 auto;
 }
 
 .grid-file-element.selected img {
