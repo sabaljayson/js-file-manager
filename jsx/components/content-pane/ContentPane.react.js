@@ -1,5 +1,6 @@
 var React = require('react');
 
+var TextView = require('./TextView.react');
 var ZoomableMedia = require('./ZoomableMedia.react');
 var ContentPaneStore = require('../../stores/ContentPaneStore');
 
@@ -33,7 +34,7 @@ class ContentPane extends React.Component {
       return <ZoomableMedia file={file} />
     }
     else if (this.state.value) {
-      return false;
+      return <TextView value={this.state.value} />;
     }
 
     return false;
