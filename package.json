@@ -33,8 +33,6 @@
     "mousetrap": "~1.5.3",
     "range": "0.0.3",
     "fs-extra": "~0.22.1",
-    "react-ace": "~2.0.3",
-    "brace": "~0.5.1",
     "vf-wheelzoom": "0.0.4",
     "react-draggable": "~0.8.1",
     "folderify": "~0.7.1",
@@ -72,8 +70,7 @@
           "es6": true
         }
       ],
-      "envify",
-      "folderify"
+      "envify"
     ]
   },
   "main": "launcher.js"
