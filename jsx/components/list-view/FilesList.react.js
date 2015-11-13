@@ -7,6 +7,7 @@ var ContextMenuConstants = require('../../constants/ContextMenuConstants');
 var fileViewable = require('../../utils/FileViewable');
 
 var ListFile = require('./ListFile.react');
+var AreaSelect = require('../../utils/AreaSelect');
 
 function getState() {
   return {
@@ -30,17 +31,6 @@ class FilesList extends React.Component {
     // load thumbs if stops/slows scrolling    
     $('.files-list-element').bind('scroll',
       _.debounce(FileManagerActions.updateFilesThumbnails, 120));
-
-    var self = this; // TODO
-
-    $('.files-list-element').areaSelect({
-      selectors: ['.list-file-element', '.list-folder-element'],
-      enterArea: self._selectFile,
-      exitArea: self._unselectFile
-    }, {
-      borderColor: '#337ab7',
-      backgroundColor: 'rgba(215, 233, 249, 0.44)'
-    });
   }
 
   componentWillUnmount() {
@@ -60,8 +50,9 @@ class FilesList extends React.Component {
     };
 
     var files = folders.concat(files).filter(fileViewable);
+    var areaSelect = AreaSelect(['.list-file-element', '.list-folder-element']);  
 
-    return (
+    return areaSelect(
       <div
         style={styles}
         className='files-list-element'

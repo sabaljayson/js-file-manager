@@ -71,6 +71,11 @@ var FileManagerActions = {
   },  
 
   setFileSelection: function(id, selected) {
+    var file = FileManagerStore.getFile(id);
+    if (file.selected == selected) {
+      return;
+    }
+
     AppDispatcher.dispatch({
       actionType: FileManagerConstants.SET_FILE_SELECTION,
       id: id,

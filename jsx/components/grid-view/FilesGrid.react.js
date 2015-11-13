@@ -7,6 +7,7 @@ var ContextMenuConstants = require('../../constants/ContextMenuConstants');
 
 var GridFolder = require('./GridFolder.react');
 var GridFile = require('./GridFile.react');
+var AreaSelect = require('../../utils/AreaSelect');
 
 function getState() {
   return {
@@ -29,17 +30,6 @@ class FilesGrid extends React.Component {
     // load thumbs if stops/slows scrolling    
     $('.files-grid-element').bind('scroll',
       _.debounce(FileManagerActions.updateFilesThumbnails, 120));
-
-    var self = this; // TODO
-
-    $('.files-grid-element').areaSelect({
-      selectors: ['.grid-file-element', '.grid-folder-element'],
-      enterArea: self._selectFile,
-      exitArea: self._unselectFile
-    }, {
-      borderColor: '#337ab7',
-      backgroundColor: 'rgba(215, 233, 249, 0.44)'
-    });
   }
 
   componentWillUnmount() {
@@ -60,8 +50,10 @@ class FilesGrid extends React.Component {
       backgroundColor: 'white',
       zIndex: 10
     };
+    
+    var areaSelect = AreaSelect(['.grid-file-element', '.grid-folder-element']);
 
-    return (
+    return areaSelect(
       <div
         style={styles}
         className='files-grid-element'
@@ -94,16 +86,6 @@ class FilesGrid extends React.Component {
     
     FileManagerActions.unselectAllFiles();
     ContextMenuActions.open(e.pageY, e.pageX);
-  }
-
-  _selectFile(node) {
-    FileManagerActions.setFileSelection(node.id, true);
-  }
-
-  _unselectFile(node) {
-    if (FileManagerStore.getFile(node.id).selected) {
-      FileManagerActions.setFileSelection(node.id, false);
-    }
   }
 }
 
