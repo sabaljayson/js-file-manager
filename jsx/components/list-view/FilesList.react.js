@@ -94,16 +94,6 @@ class FilesList extends React.Component {
     ContextMenuActions.open(e.pageY, e.pageX);
   }  
 
-  _selectFile(node) {
-    FileManagerActions.setFileSelection(node.id, true);
-  }
-
-  _unselectFile(node) {
-    if (FileManagerStore.getFile(node.id).selected) {
-      FileManagerActions.setFileSelection(node.id, false);
-    }
-  }
-
   _sortByMethod(method) {
     return () => {
       var newOrder = this.state.sortValues.order;

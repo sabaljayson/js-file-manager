@@ -27,15 +27,15 @@ app.use('/bower_components', express.static(bowerPath));
 var RoutesPaths = require('./routes/RoutesPaths');
 var indexRegExp = new RegExp(escapeRegexp(RoutesPaths.index) + '.+');
 
-app.use('/', 													require('./routes/index'));
-app.use(indexRegExp, 									require('./routes/index'));
-app.use(RoutesPaths.lsCommand, 				require('./routes/lsCommand'));
-app.use(RoutesPaths.rmCommand, 				require('./routes/rmCommand'));
-app.use(RoutesPaths.mvCommand, 				require('./routes/mvCommand'));
-app.use(RoutesPaths.getCommand, 			require('./routes/getCommand'));
-app.use(RoutesPaths.setCommand, 			require('./routes/setCommand'));
+app.use('/', 							require('./routes/index'));
+app.use(indexRegExp, 					require('./routes/index'));
+app.use(RoutesPaths.lsCommand, 		    require('./routes/lsCommand'));
+app.use(RoutesPaths.rmCommand, 		    require('./routes/rmCommand'));
+app.use(RoutesPaths.mvCommand, 		    require('./routes/mvCommand'));
+app.use(RoutesPaths.getCommand, 	    require('./routes/getCommand'));
+app.use(RoutesPaths.setCommand, 		require('./routes/setCommand'));
 app.use(RoutesPaths.mkdirCommand, 		require('./routes/mkdirCommand'));
-app.use(RoutesPaths.openCommand, 			require('./routes/openCommand'));
+app.use(RoutesPaths.openCommand,        require('./routes/openCommand'));
 app.use(RoutesPaths.watchCommand, 		require('./routes/watchCommand'));
 app.use(RoutesPaths.thumbCommand, 		require('./routes/thumbCommand'));
 app.use(RoutesPaths.executeCommand,		require('./routes/executeCommand'));
@@ -43,7 +43,7 @@ app.use(RoutesPaths.executeCommand,		require('./routes/executeCommand'));
 var server = http.createServer(app);
 
 server.listen(PORT, function() {
-	console.log('Open on http://localhost:' + PORT);
+  console.log('Open on http://localhost:' + PORT);
 });
 
 var io = socketIo(server);
