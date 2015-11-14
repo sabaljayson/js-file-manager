@@ -13,13 +13,18 @@ router.get('/', function(req, res, next) {
 	}
 
 	try {
-		open(req.query.address);
+		if (req.query.hasOwnProperty('withApp')) {
+			open(req.query.address, req.query.withApp);
+		}
+		else {
+			open(req.query.address);
+		}
 	}
 	catch (e) {
 		return response(res).fail(e);
-	}
+	}		
 
-  console.log(RoutesPaths.openCommand, req.query.address);
+  console.log(RoutesPaths.openCommand, req.query.address, req.query.withApp);
   return response(res).success();
 });
 

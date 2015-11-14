@@ -103,10 +103,11 @@ var FileManagerActions = {
       .forEach(f => FileManagerActions.setFileSelection(f.id, false));
   },
 
-  openFile: function(id) {
+  openFile: function(id, withApp) {
     AppDispatcher.dispatch({
       actionType: FileManagerConstants.OPEN_FILE,
-      id: id
+      id: id,
+      withApp: withApp
     });
   },
 

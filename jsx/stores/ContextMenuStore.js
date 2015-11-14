@@ -88,8 +88,8 @@ function getFileItems(selectedFiles) {
   var selLabel = getSelLabel(files, dirs);
   var items = [];
 
+  /* Still buggy
   var execFiles = files.filter(f => f.is_executable);
-
   if (execFiles.length && ! dirs.length) {
     items.push({
       label: 'Run ' + selLabel,
@@ -98,6 +98,7 @@ function getFileItems(selectedFiles) {
       }
     });
   }
+  */
 
   if (dirs.length <= 1) {
     items.push({
@@ -108,6 +109,19 @@ function getFileItems(selectedFiles) {
           .map(f => f.id)
           .forEach(FileManagerActions.openFile);
       }
+    });
+  }
+
+  if (files.length == 1) {
+    items.push({
+      type: 'submenu',
+      label: 'Open with',
+      items: files[0].open_with.map(app => {
+        return {
+          label: app.name,
+          onclick: () => FileManagerActions.openFile(files[0].id, app.cmd)
+        };
+      })
     });
   }
 
