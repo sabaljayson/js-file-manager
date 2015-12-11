@@ -98,16 +98,20 @@ var API = {
 module.exports = API;
 
 function ajax(url, args, callback) {
-	$.ajax({
+  if (! url) {
+    throw "Invalid url";
+  }
+
+  $.ajax({
     url: url,
     data: args,
     success: function(data) {
-    	if (data === 'error') {
-    		notifyThat.failed('Failed ' + url + ' ' + JSON.stringify(args));
-    		return;
-    	}
+      if (data === 'error') {
+        notifyThat.failed('Failed ' + url + ' ' + JSON.stringify(args));
+        return;
+      }
 
-    	callback && callback(data);
+      callback && callback(data);
     }
   });
 }

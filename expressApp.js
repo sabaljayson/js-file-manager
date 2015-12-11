@@ -31,6 +31,7 @@ app.use('/', 							require('./routes/index'));
 app.use(indexRegExp, 					require('./routes/index'));
 app.use(RoutesPaths.lsCommand, 		    require('./routes/lsCommand'));
 app.use(RoutesPaths.rmCommand, 		    require('./routes/rmCommand'));
+app.use(RoutesPaths.cpCommand, 		    require('./routes/cpCommand'));
 app.use(RoutesPaths.mvCommand, 		    require('./routes/mvCommand'));
 app.use(RoutesPaths.getCommand, 	    require('./routes/getCommand'));
 app.use(RoutesPaths.setCommand, 		require('./routes/setCommand'));

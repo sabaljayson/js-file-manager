@@ -2,6 +2,7 @@ module.exports = {
 	index: '/$',
 	lsCommand: '/ls',
 	rmCommand: '/rm',
+    cpCommand: '/cp',
 	mvCommand: '/mv',
 	getCommand: '/get',
 	setCommand: '/set',

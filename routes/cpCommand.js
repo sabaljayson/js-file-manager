@@ -17,6 +17,8 @@ router.get('/', function(req, res, next) {
 	var from = req.query.from;
 	var to = req.query.to;
 
+    console.log('CP', from, to);
+
 	try {
 		fs.copySync(from, to);
 	}
