@@ -109,7 +109,7 @@ function getFileItems(selectedFiles) {
           .map(f => f.id)
           .forEach(FileManagerActions.openFile);
       }
-    });
+    });  
   }
 
   if (files.length == 1) {
@@ -131,6 +131,13 @@ function getFileItems(selectedFiles) {
       dirs.concat(files).forEach(openInNewTab);
     }
   });
+
+  if (dirs.length == 1 && files.length == 0) {
+    items.push({
+      label: 'Open with system file manager' + selLabel,
+      onclick: () => FileManagerActions.openFile(dirs[0].id)
+    });
+  }
 
   items = items.concat([
   {
