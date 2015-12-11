@@ -4,8 +4,6 @@ var mime = require('mime');
 var path = require('path');
 var executable = require('executable');
 
-var getFileOpenWithApps = require('./getFileOpenWithApps');
-
 module.exports = function(pathToFile) {
 	var stats = fs.lstatSync(pathToFile);
 	var isDir = stats.isDirectory();
@@ -19,7 +17,6 @@ module.exports = function(pathToFile) {
 		filename: path.basename(pathToFile),
 		path: pathToFile,
 		mime: fileMime,
-		open_with: isDir ? false : getFileOpenWithApps(pathToFile),
 		id: md5(pathToFile),
 		size: stats.size,
 		mtime: stats.mtime,

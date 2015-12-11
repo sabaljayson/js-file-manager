@@ -116,7 +116,7 @@ function getFileItems(selectedFiles) {
     items.push({
       type: 'submenu',
       label: 'Open with',
-      items: files[0].open_with.map(app => {
+      items: API.getOpenWithList(files[0].path).map(app => {
         return {
           label: app.name,
           onclick: () => FileManagerActions.openFile(files[0].id, app.cmd)

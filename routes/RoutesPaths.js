@@ -9,5 +9,6 @@ module.exports = {
 	openCommand: '/open',
 	watchCommand: '/watch',
 	thumbCommand: '/thumb',
-	executeCommand: '/exec'
+	executeCommand: '/exec',
+    getOpenWithList: '/open_with_list'
 };

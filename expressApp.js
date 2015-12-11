@@ -39,6 +39,7 @@ app.use(RoutesPaths.openCommand,        require('./routes/openCommand'));
 app.use(RoutesPaths.watchCommand, 		require('./routes/watchCommand'));
 app.use(RoutesPaths.thumbCommand, 		require('./routes/thumbCommand'));
 app.use(RoutesPaths.executeCommand,		require('./routes/executeCommand'));
+app.use(RoutesPaths.getOpenWithList,    require('./routes/getOpenWithList'));
 
 var server = http.createServer(app);
 

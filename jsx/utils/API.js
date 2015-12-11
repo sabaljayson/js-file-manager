@@ -82,7 +82,17 @@ var API = {
 
 	executeCommand: function(path, callback) {
 		ajax(RoutesPaths.executeCommand, { address: path }, callback);
-	}
+	},
+
+    getOpenWithList: function(path) {
+        var json = $.ajax({
+          url: RoutesPaths.getOpenWithList,
+          data: { address: path },
+          async: false
+        }).responseText;
+
+        return JSON.parse(json);
+    }
 };
 
 module.exports = API;
