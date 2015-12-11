@@ -27,10 +27,6 @@ class FilesList extends React.Component {
 
   componentDidMount() {
     FileManagerStore.addChangeListener(this._onChange);
-
-    // load thumbs if stops/slows scrolling    
-    $('.files-list-element').bind('scroll',
-      _.debounce(FileManagerActions.updateFilesThumbnails, 120));
   }
 
   componentWillUnmount() {
@@ -57,7 +53,8 @@ class FilesList extends React.Component {
         style={styles}
         className='files-list-element'
         onClick={this._onClick}
-        onContextMenu={this._onContextMenu} >
+        onContextMenu={this._onContextMenu}
+        onScroll={_.debounce(FileManagerActions.updateFilesThumbnails, 120)} >
 
         <table className='table table-condensed'>
           <thead>

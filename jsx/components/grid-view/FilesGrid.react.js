@@ -26,10 +26,6 @@ class FilesGrid extends React.Component {
 
   componentDidMount() {
     FileManagerStore.addChangeListener(this._onChange);
-
-    // load thumbs if stops/slows scrolling    
-    $('.files-grid-element').bind('scroll',
-      _.debounce(FileManagerActions.updateFilesThumbnails, 120));
   }
 
   componentWillUnmount() {
@@ -55,10 +51,13 @@ class FilesGrid extends React.Component {
 
     return areaSelect(
       <div
+        onScroll={_.debounce(FileManagerActions.updateFilesThumbnails, 120)}
         style={styles}
         className='files-grid-element'
         onClick={this._onClick}
-        onContextMenu={this._onContextMenu} >
+        onContextMenu={this._onContextMenu}
+        onScroll={_.debounce(FileManagerActions.updateFilesThumbnails, 120)} >
+        
         <div>          
           {folders.map(f => <GridFolder key={f.id} id={f.id}></GridFolder>)}
         </div>
