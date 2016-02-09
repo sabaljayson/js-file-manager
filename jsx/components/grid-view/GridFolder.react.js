@@ -1,5 +1,5 @@
-var React = require('react/addons');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+var React = require('react');
+var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 var classNames = require('classnames');
 
 var FileManagerActions = require('../../actions/FileManagerActions');
@@ -45,7 +45,10 @@ class GridFolder extends React.Component {
     var droppable = Droppable(this, this.state.path);
 
     return draggable(droppable(
-      <ReactCSSTransitionGroup transitionName='opacity-animation' transitionAppear={true}>
+      <ReactCSSTransitionGroup transitionName='opacity-animation' transitionAppear={true}
+        transitionAppearTimeout={500}
+        transitionLeaveTimeout={500}
+        transitionEnterTimeout={500}>
         <a
           title={file.filename}
           id={this.props.id}

@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var url = require('url');
 var mousetrap = require('mousetrap');
 
@@ -9,9 +10,9 @@ var FileManager = require('./components/FileManager.react');
 $(document).ready(function() {
 
 	var MainNode = $('#file-manager-container');
-	React.render(<FileManager/>, MainNode.get(0));
-	FileManagerActions.changePath(CONSTS.DEFAULT_DIR);
+    ReactDOM.render(<FileManager/>, MainNode.get(0));
 
+	FileManagerActions.changePath(CONSTS.DEFAULT_DIR);
 
 	['left', 'right', 'up', 'down'].forEach(key => {
 		mousetrap.bind(key, e => {
@@ -21,7 +22,7 @@ $(document).ready(function() {
 				FileManagerActions.moveSelection(key);
 			}
 		});
-	})
+	});
 	mousetrap.bind('ctrl+a', FileManagerActions.selectAllFiles);
 	mousetrap.bind('backspace',	FileManagerActions.historyBack);	
 });

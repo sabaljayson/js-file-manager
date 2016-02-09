@@ -1,10 +1,11 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var FileManagerActions = require('../actions/FileManagerActions');
 
 var AreaSelect = selectors => element => {
   class AreaSelectComponent extends React.Component {
     componentDidMount() {
-      this.container = $(this.refs.container.getDOMNode());
+      this.container = $(ReactDOM.findDOMNode(this.refs.container));
       this.containerWidth = this.container.width();
       this.rectNode = null;
 

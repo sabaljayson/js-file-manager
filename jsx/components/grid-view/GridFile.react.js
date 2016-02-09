@@ -1,5 +1,5 @@
-var React = require('react/addons');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+var React = require('react');
+var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 var classNames = require('classnames');
 
 var FileManagerActions = require('../../actions/FileManagerActions');
@@ -40,7 +40,10 @@ class GridFile extends React.Component {
     var draggable = Draggable(gridDragImageView);
 
     return draggable(
-      <ReactCSSTransitionGroup transitionName='opacity-animation' transitionAppear={true}>
+      <ReactCSSTransitionGroup transitionName='opacity-animation' transitionAppear={true}
+        transitionAppearTimeout={500}
+        transitionLeaveTimeout={500}
+        transitionEnterTimeout={500}>
         <div
           className={classes}
           key={file.id}
