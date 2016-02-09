@@ -1,7 +1,5 @@
 # File Manager in your browser
 
-![alt tag](http://i.imgur.com/vTRDHTH.png)
-
 ## Description
 js-file-manager is a work in progress file manager, written in JavaScript. It consists of two parts
 * Node.js server, for serving static files and interacting with OS
