@@ -16,7 +16,7 @@ var AreaSelect = selectors => element => {
       this.selectableElems.forEach(el => {
         this.selectableOffsets[el.id] = $(el).offset();
       });
- 
+      
       this.container.off('mousedown');
       this.container.off('mousemove');
       this.container.off('mouseup');

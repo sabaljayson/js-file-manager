@@ -1,6 +1,7 @@
 var React = require('react');
 var Path = require('path');
 var classNames = require('classnames');
+var SplitPane = require('react-split-pane');
 var DocumentTitle = require('react-document-title');
 
 var FileManagerStore = require('../stores/FileManagerStore');
@@ -50,15 +51,9 @@ class FileManager extends React.Component {
       throw 'Unknown files view type ' + viewType;
     }
 
-    var split1 = classNames('files-view-panel', {
-      'col-xs-6': this.state.settings.contentPaneOpen,
-      'col-xs-12': ! this.state.settings.contentPaneOpen
-    });
-
-    var split2 = classNames('content-pane-panel', {
-      'col-xs-6': this.state.settings.contentPaneOpen,
-      'col-xs-0': ! this.state.settings.contentPaneOpen
-    });		
+    var onSplitChange = _.debounce(
+      FileManagerStore.emitChange.bind(FileManagerStore), 120
+    );
 
     return (
       <DocumentTitle title={title}>
@@ -67,12 +62,14 @@ class FileManager extends React.Component {
           <FileOperationModal />
           <NavBar path={this.state.path} viewType={viewType} />
           <div className='row'>
-            <div className={split1} style={{borderRight: '1px solid #eee', zIndex: 10, paddingRight: 0}}>
+          <SplitPane
+            split="vertical"
+            minSize="50"
+            defaultSize={window.innerWidth * 0.75}
+            onChange={onSplitChange} >
               {filesViewComponent}
-            </div>
-            <div className={split2} style={{height: '100%', padding: 0}}>
               <ContentPane />
-            </div>
+          </SplitPane>
           </div>
         </div>
       </DocumentTitle>

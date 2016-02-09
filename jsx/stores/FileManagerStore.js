@@ -27,7 +27,6 @@ var _storeData = {
     order: -1
   },
   settings: {
-    contentPaneOpen: true,
     iconsType: FileManagerConstants.ICON_TYPE_OXYGEN
   }
 };
@@ -259,16 +258,6 @@ var FileManagerStore = assign({}, EventEmitter.prototype, {
 
   getSortValues: function() {
     return _storeData.sort;
-  },
-
-  getContentPane: function() {
-    return true;
-
-    var selFiles = FileManagerStore.getSelectedFiles();
-    if (selFiles.length > 1)
-      return false;
-
-    return selFiles[0];
   },
 
   getPath: function() {
