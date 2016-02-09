@@ -18,14 +18,14 @@ var AreaSelect = selectors => element => {
       });
       
       this.container.off('mousedown');
-      this.container.off('mousemove');
-      this.container.off('mouseup');
+      $(document).off('mousemove');
       this.container.off('mouseleave');
+      $(document).off('mouseup');
       
       this.container.on('mousedown', this.onMouseDown.bind(this));
-      this.container.on('mousemove', this.onMouseMove.bind(this));
-      this.container.on('mouseup', this.onMouseUp.bind(this));
+      $(document).on('mousemove', this.onMouseMove.bind(this));
       this.container.on('mouseleave', this.onMouseOut.bind(this));
+      $(document).on('mouseup', this.onMouseUp.bind(this));
     }
 
     render() {
@@ -63,7 +63,6 @@ var AreaSelect = selectors => element => {
     }
 
     onMouseOut(e) {
-     this.onMouseUp(e);
     }
 
     nodeOffset(node) {
